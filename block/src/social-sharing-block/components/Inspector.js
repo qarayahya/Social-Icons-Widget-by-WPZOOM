@@ -430,7 +430,7 @@ export default function Inspector({ attributes, setAttributes }) {
 
 						<Button
 							variant="primary"
-							href="https://www.wpzoom.com/plugins/social-widget/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=block-inspector"
+							href="https://www.wpzoom.com/plugins/social-share/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=block-inspector"
 							target="_blank"
 							style={{ width: '100%', justifyContent: 'center' }}
 						>
@@ -702,7 +702,7 @@ export default function Inspector({ attributes, setAttributes }) {
 
 						<Button
 							variant="link"
-							href="https://www.wpzoom.com/plugins/social-widget/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=sharing-networks"
+							href="https://www.wpzoom.com/plugins/social-share/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=sharing-networks"
 							target="_blank"
 							style={{ marginTop: '8px', fontSize: '12px' }}
 						>

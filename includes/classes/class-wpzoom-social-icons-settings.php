@@ -595,7 +595,7 @@ class WPZOOM_Social_Icons_Settings {
 	 * @return void
 	 */
 	public function render_upload_pro_upsell() {
-		$upgrade_url = 'https://www.wpzoom.com/plugins/social-widget/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=settings-upload';
+		$upgrade_url = 'https://www.wpzoom.com/plugins/social-share/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=settings-upload';
 		?>
 		<div class="wpzoom-upload-pro-preview">
 			<!-- Blurred Preview -->

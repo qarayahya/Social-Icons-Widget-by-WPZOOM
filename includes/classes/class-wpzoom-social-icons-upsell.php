@@ -81,7 +81,7 @@ class WPZOOM_Social_Icons_Upsell {
 	 * @return string
 	 */
 	private function get_upgrade_url() {
-		return 'https://www.wpzoom.com/plugins/social-widget/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=upsell-page';
+		return 'https://www.wpzoom.com/plugins/social-share/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=upsell-page';
 	}
 
 	/**

@@ -97,7 +97,7 @@ You can view the plugin live in all our themes at [WPZOOM](https://www.wpzoom.co
 
 = PRO Features =
 
-Upgrade to [Social Icons Widget PRO](https://www.wpzoom.com/plugins/social-widget/) to unlock powerful features:
+Upgrade to [Social Icons Widget PRO](https://www.wpzoom.com/plugins/social-share/) to unlock powerful features:
 
 * **Share Analytics Dashboard** - Track how visitors share your content with detailed analytics
 * **Like Button** - Add a like button to let visitors engage with your posts
@@ -109,7 +109,7 @@ Upgrade to [Social Icons Widget PRO](https://www.wpzoom.com/plugins/social-widge
 * **Dashboard Widget** - Quick stats overview right on your WordPress dashboard
 * **Priority Support** - Get help faster with priority email support
 
-[Learn more about PRO →](https://www.wpzoom.com/plugins/social-widget/)
+[Learn more about PRO →](https://www.wpzoom.com/plugins/social-share/)
 
 **General Features:**
 * 100+ Sites/Social Networks Supported
@@ -150,7 +150,7 @@ After that go to the **Widgets** page and add the widget **Social Icons by WPZOO
 
 = Where do I find more details about this plugin? =
 
-On our [website](http://www.wpzoom.com/plugins/social-widget/).
+On our [website](http://www.wpzoom.com/plugins/social-share/).
 
 = How can I add Social Icons to a Page? =
 
@@ -195,7 +195,7 @@ Yes! Social Icons & Sharing Buttons does not collect any information from your v
 
 = What features are available in the PRO version? =
 
-[Social Icons Widget PRO](https://www.wpzoom.com/plugins/social-widget/) includes these additional features:
+[Social Icons Widget PRO](https://www.wpzoom.com/plugins/social-share/) includes these additional features:
 
 * **Share Analytics** - Track shares across all platforms with a beautiful analytics dashboard
 * **Like Button** - Let visitors like your posts with engagement tracking

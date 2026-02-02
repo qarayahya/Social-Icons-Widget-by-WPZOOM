@@ -101,7 +101,7 @@ class WPZOOM_Share_Analytics_Upsell {
 	 * Render the upsell page
 	 */
 	public function render_page() {
-		$upgrade_url = 'https://www.wpzoom.com/plugins/social-widget/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=analytics-page';
+		$upgrade_url = 'https://www.wpzoom.com/plugins/social-share/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=analytics-page';
 		?>
 		<div class="wrap wpzoom-analytics-upsell-wrap">
 			<h1><?php esc_html_e( 'Share Analytics', 'social-icons-widget-by-wpzoom' ); ?> <span class="wpzoom-pro-badge"><?php esc_html_e( 'Pro', 'social-icons-widget-by-wpzoom' ); ?></span></h1>

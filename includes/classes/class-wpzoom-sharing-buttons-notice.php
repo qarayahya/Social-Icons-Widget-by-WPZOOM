@@ -138,7 +138,7 @@ class WPZOOM_Sharing_Buttons_Notice {
 						printf(
 							/* translators: %s: upgrade link */
 							esc_html__( 'Want more? %s adds AI Share Buttons, Like Button, Share Counts & Analytics.', 'social-icons-widget-by-wpzoom' ),
-							'<a href="https://www.wpzoom.com/plugins/social-widget/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=sharing-notice" target="_blank"><strong>' . esc_html__( 'PRO', 'social-icons-widget-by-wpzoom' ) . '</strong></a>'
+							'<a href="https://www.wpzoom.com/plugins/social-share/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=sharing-notice" target="_blank"><strong>' . esc_html__( 'PRO', 'social-icons-widget-by-wpzoom' ) . '</strong></a>'
 						);
 						?>
 					</p>
@@ -146,7 +146,7 @@ class WPZOOM_Sharing_Buttons_Notice {
 						<a href="<?php echo esc_url( $configure_url ); ?>" class="button wpzoom-sharing-btn-primary">
 							<?php esc_html_e( 'Configure Sharing Buttons', 'social-icons-widget-by-wpzoom' ); ?>
 						</a>
-						<a href="https://www.wpzoom.com/plugins/social-widget/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=sharing-notice-btn" class="button wpzoom-sharing-btn-upgrade" target="_blank">
+						<a href="https://www.wpzoom.com/plugins/social-share/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=social-icons-free&utm_content=sharing-notice-btn" class="button wpzoom-sharing-btn-upgrade" target="_blank">
 							<span class="dashicons dashicons-star-filled" style="font-size: 16px; line-height: 28px; width: 16px; height: 16px; margin-right: 3px;"></span>
 							<?php esc_html_e( 'Upgrade to Pro', 'social-icons-widget-by-wpzoom' ); ?>
 						</a>

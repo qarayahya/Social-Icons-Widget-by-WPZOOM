@@ -250,7 +250,7 @@ msgid "https://www.wpzoom.com/"
 msgstr ""
 
 #. URI of the plugin
-msgid "https://www.wpzoom.com/plugins/social-widget/"
+msgid "https://www.wpzoom.com/plugins/social-share/"
 msgstr ""
 
 #: includes/classes/class-zoom-social-icons-widget.php:771
