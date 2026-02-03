@@ -880,6 +880,19 @@
     color: #242628;
 }
 
+.wpzoom-new-badge {
+    display: inline-block;
+    background: #00a32a;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
 .wpzoom-features-table .t-footer {
     padding-top: 30px;
     border-top: 1px solid #e1e5e9;
@@ -911,5 +924,281 @@
 
     .wpzoom-features-table li:not(.t-footer) div:first-child {
         width: 130px;
+    }
+}
+
+/* =====================================================
+   Floating Buttons Upsell Page
+   ===================================================== */
+.wpzoom-floating-upsell-wrap {
+    max-width: 1200px;
+}
+
+.wpzoom-floating-upsell-wrap h1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wpzoom-floating-description {
+    color: #646970;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.wpzoom-floating-preview-container {
+    position: relative;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.wpzoom-floating-preview-blurred {
+    padding: 30px;
+    filter: blur(1px);
+    opacity: 0.7;
+    pointer-events: none;
+    user-select: none;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 30px;
+}
+
+/* Settings Panel Preview */
+.wpzoom-floating-settings-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1d2327;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #dcdcde;
+}
+
+.wpzoom-floating-settings-header .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: #2271b1;
+}
+
+.wpzoom-floating-settings-group {
+    margin-bottom: 20px;
+    background: #f6f7f7;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #dcdcde;
+}
+
+.wpzoom-floating-settings-group > label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1d2327;
+    margin-bottom: 10px;
+}
+
+.wpzoom-floating-position-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wpzoom-floating-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wpzoom-floating-option-label {
+    font-size: 12px;
+    color: #646970;
+    min-width: 70px;
+}
+
+.wpzoom-floating-radio-group,
+.wpzoom-floating-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.wpzoom-floating-radio-group label,
+.wpzoom-floating-checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: #1d2327;
+    cursor: default;
+}
+
+.wpzoom-floating-input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #1d2327;
+}
+
+.wpzoom-floating-input-group input {
+    width: 60px;
+    padding: 4px 8px;
+    border: 1px solid #dcdcde;
+    border-radius: 3px;
+    background: #fff;
+}
+
+/* Visual Preview - Browser Frame */
+.wpzoom-floating-visual-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wpzoom-floating-browser-frame {
+    background: #f6f7f7;
+    border: 1px solid #dcdcde;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.wpzoom-floating-browser-header {
+    background: #e0e0e0;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.wpzoom-floating-browser-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #c3c4c7;
+}
+
+.wpzoom-floating-browser-dot:nth-child(1) {
+    background: #ff5f56;
+}
+
+.wpzoom-floating-browser-dot:nth-child(2) {
+    background: #ffbd2e;
+}
+
+.wpzoom-floating-browser-dot:nth-child(3) {
+    background: #27ca40;
+}
+
+.wpzoom-floating-browser-url {
+    flex: 1;
+    margin-left: 10px;
+    padding: 5px 12px;
+    background: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #646970;
+}
+
+.wpzoom-floating-browser-content {
+    position: relative;
+    min-height: 320px;
+    background: #fff;
+    padding: 20px 60px 20px 20px;
+}
+
+.wpzoom-floating-page-header {
+    height: 40px;
+    background: linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 100%);
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.wpzoom-floating-page-content {
+    padding: 10px 0;
+}
+
+.wpzoom-floating-content-line {
+    height: 12px;
+    background: #e8e8e8;
+    border-radius: 3px;
+    margin-bottom: 12px;
+}
+
+.wpzoom-floating-content-line.wpzoom-floating-content-title {
+    height: 20px;
+    width: 60%;
+    background: #d0d0d0;
+    margin-bottom: 20px;
+}
+
+.wpzoom-floating-content-line.wpzoom-floating-content-short {
+    width: 70%;
+}
+
+.wpzoom-floating-content-line:nth-child(even):not(.wpzoom-floating-content-title):not(.wpzoom-floating-content-short) {
+    width: 85%;
+}
+
+/* Floating Bar Preview */
+.wpzoom-floating-bar-preview {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 10;
+}
+
+.wpzoom-floating-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.wpzoom-floating-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.wpzoom-floating-icon-fb { background: #1877f2; }
+.wpzoom-floating-icon-x { background: #000; }
+.wpzoom-floating-icon-linkedin { background: #0a66c2; }
+.wpzoom-floating-icon-pinterest { background: #e60023; }
+.wpzoom-floating-icon-whatsapp { background: #25d366; }
+
+/* NEW Badge */
+.wpzoom-upsell-badge-new {
+    background: #00a32a;
+}
+
+/* Responsive */
+@media screen and (max-width: 960px) {
+    .wpzoom-floating-preview-blurred {
+        grid-template-columns: 1fr;
+    }
+
+    .wpzoom-floating-browser-content {
+        min-height: 280px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .wpzoom-floating-preview-blurred {
+        padding: 20px;
     }
 }

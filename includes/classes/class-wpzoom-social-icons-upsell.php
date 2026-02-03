@@ -234,6 +234,23 @@ class WPZOOM_Social_Icons_Upsell {
 							</p>
 						</div>
 
+						<!-- Floating Buttons -->
+						<div class="wpzoom-upsell-section">
+							<div class="wpzoom-upsell-section-image">
+								<img src="https://www.wpzoom.com/wp-content/themes/wpzoom/images/social-landing/floating-buttons.png" alt="<?php esc_attr_e( 'Floating Buttons', 'social-icons-widget-by-wpzoom' ); ?>" />
+							</div>
+							<span class="wpzoom-upsell-badge wpzoom-upsell-badge-new"><?php esc_html_e( 'NEW', 'social-icons-widget-by-wpzoom' ); ?></span>
+							<h4>
+								<span class="dashicons dashicons-align-left"></span>
+								<?php esc_html_e( 'Floating Buttons', 'social-icons-widget-by-wpzoom' ); ?>
+							</h4>
+							<p class="about"><?php esc_html_e( 'Display social sharing icons as a fixed floating bar on the side of your website. Visitors can share from anywhere on the page. Configure position, layout, and visibility for specific post types.', 'social-icons-widget-by-wpzoom' ); ?></p>
+							<p class="section_footer">
+								<strong><?php esc_html_e( 'Without PRO:', 'social-icons-widget-by-wpzoom' ); ?></strong>
+								<?php esc_html_e( 'No floating share bar', 'social-icons-widget-by-wpzoom' ); ?>
+							</p>
+						</div>
+
 					</div>
 
 					<!-- Free vs PRO Table -->
@@ -295,6 +312,11 @@ class WPZOOM_Social_Icons_Upsell {
 						</li>
 						<li class="t-row">
 							<div class="h-wrap"><?php esc_html_e( 'Share Counts', 'social-icons-widget-by-wpzoom' ); ?></div>
+							<div class="c"><?php echo $cross; // phpcs:ignore ?></div>
+							<div class="c"><?php echo $check; // phpcs:ignore ?></div>
+						</li>
+						<li class="t-row">
+							<div class="h-wrap"><?php esc_html_e( 'Floating Buttons Bar', 'social-icons-widget-by-wpzoom' ); ?> <span class="wpzoom-new-badge"><?php esc_html_e( 'New', 'social-icons-widget-by-wpzoom' ); ?></span></div>
 							<div class="c"><?php echo $cross; // phpcs:ignore ?></div>
 							<div class="c"><?php echo $check; // phpcs:ignore ?></div>
 						</li>
