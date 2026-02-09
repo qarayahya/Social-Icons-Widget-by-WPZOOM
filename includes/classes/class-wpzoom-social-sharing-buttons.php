@@ -419,7 +419,12 @@ class WPZOOM_Social_Sharing_Buttons {
 		if ( is_admin() || is_feed() ) {
 			return $content;
 		}
-		
+
+		// Only add sharing buttons in the main loop (not in widgets or other secondary content)
+		if ( ! in_the_loop() ) {
+			return $content;
+		}
+
 		// Get config
 		$config = $this->get_sharing_config();
 		
