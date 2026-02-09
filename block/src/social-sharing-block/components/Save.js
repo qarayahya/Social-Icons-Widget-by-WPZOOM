@@ -175,8 +175,9 @@ export default function Save({ attributes }) {
 								target="_blank"
 								rel="noopener noreferrer"
 								data-platform={platform.id}
+								{...(platform.id === 'pinterest' ? { 'data-pin-custom': 'true' } : {})}
 							>
-								<SocialIcons 
+								<SocialIcons
 									id={platform.id} 
 									size={iconSize} 
 									color={iconColor || '#ffffff'} 
