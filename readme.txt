@@ -5,7 +5,7 @@ Tags: social icons, social media icons, share buttons, social sharing, social me
 Requires at least: 6.0
 Requires PHP: 7.4
 Tested up to: 6.9
-Stable tag: 4.5.6
+Stable tag: 4.5.7
 License: GNU General Public License v2.0 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -200,6 +200,9 @@ Floating Buttons is a PRO feature that displays your social sharing icons as a f
 10. Social Sharing Buttons - No Label Style
 
 == Changelog ==
+
+= 4.5.7 =
+* Minor fixes
 
 = 4.5.6 =
 * Minor fixes
