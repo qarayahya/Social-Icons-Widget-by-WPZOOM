@@ -45,6 +45,16 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-zoom-social-i
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-social-icons-shortcode.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-share-analytics-upsell.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-floating-buttons-upsell.php';
+
+// WPZOOM Notice Center (drop-in for aggregating admin notices).
+if ( ! class_exists( 'WPZOOM_Notice_Center' ) ) {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-notice-center.php';
+	WPZOOM_Notice_Center::get_instance()->set_assets( array(
+		'css_url' => WPZOOM_SOCIAL_ICONS_PLUGIN_URL . 'assets/css/notice-center.css',
+		'js_url'  => WPZOOM_SOCIAL_ICONS_PLUGIN_URL . 'assets/js/notice-center.js',
+	) );
+}
+
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-sharing-buttons-notice.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-social-icons-upsell.php';
 
