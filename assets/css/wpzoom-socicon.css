@@ -1828,3 +1828,12 @@
 .social-icon.socicon-matrix:before {
     content: "\e961"
 }
+
+.socicon-matrix {
+    background-color: #FF6719;
+    color: #FF6719;
+}
+
+.socicon-substack:before {
+  content: "\e964";
+}

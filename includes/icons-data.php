@@ -1010,6 +1010,13 @@ return array(
 			),
 			'color'    => '#e64011',
 		),
+        array(
+            'icon'     => 'substack',
+            'category' => array(
+                'email',
+            ),
+            'color'    => '#FF6719',
+        ),
 		array(
 			'icon'     => 'swarm',
 			'category' => array(
