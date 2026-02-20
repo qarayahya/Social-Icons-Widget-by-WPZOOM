@@ -45,6 +45,18 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-zoom-social-i
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-social-icons-shortcode.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-share-analytics-upsell.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-floating-buttons-upsell.php';
+
+// WPZOOM Notice Center (submodule at includes/notice-center).
+$wpz_notice_center_path = WPZOOM_SOCIAL_ICONS_PLUGIN_PATH . 'includes/notice-center/';
+$wpz_notice_center_url  = WPZOOM_SOCIAL_ICONS_PLUGIN_URL . 'includes/notice-center/';
+if ( is_admin() && ! class_exists( 'WPZOOM_Notice_Center' ) && file_exists( $wpz_notice_center_path . 'notice-center.php' ) ) {
+	require_once $wpz_notice_center_path . 'notice-center.php';
+	WPZOOM_Notice_Center::get_instance()->set_assets( array(
+		'css_url' => $wpz_notice_center_url . 'assets/notice-center.css',
+		'js_url'  => $wpz_notice_center_url . 'assets/notice-center.js',
+	) );
+}
+
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-sharing-buttons-notice.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-social-icons-upsell.php';
 
