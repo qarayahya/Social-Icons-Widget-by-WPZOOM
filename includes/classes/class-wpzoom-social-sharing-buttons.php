@@ -108,6 +108,11 @@ class WPZOOM_Social_Sharing_Buttons {
 	 * Add menu item
 	 */
 	public function add_menu_item() {
+		// Only administrators should be able to create/manage sharing configuration.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		$parent_slug = 'edit.php?post_type=wpzoom-shortcode';
 		
 		// Check if there's an existing configuration
