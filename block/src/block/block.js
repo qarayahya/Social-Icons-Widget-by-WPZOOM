@@ -155,7 +155,8 @@ addFilter(
  *                             registered; otherwise `undefined`.
  */
 registerBlockType( 'wpzoom-blocks/social-icons', {
-	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
+	$schema:      "https://json.schemastore.org/block.json",
+	apiVersion: 3,
 	title: __( 'Social Icons by WPZOOM', 'social-icons-widget-by-wpzoom' ), // Block title.
 	description: __(
 		'Display icons with links to social media platforms.',
