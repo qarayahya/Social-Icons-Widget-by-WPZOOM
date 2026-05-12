@@ -2,10 +2,10 @@
 Contributors: WPZOOM, ciorici
 Donate link: https://www.wpzoom.com/
 Tags: social icons, social media icons, share buttons, social sharing, social media widget
-Requires at least: 6.0
+Requires at least: 6.5
 Requires PHP: 7.4
-Tested up to: 6.9
-Stable tag: 4.5.7
+Tested up to: 7.0
+Stable tag: 4.5.10
 License: GNU General Public License v2.0 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -200,6 +200,15 @@ Floating Buttons is a PRO feature that displays your social sharing icons as a f
 10. Social Sharing Buttons - No Label Style
 
 == Changelog ==
+
+= 4.5.10 =
+* Fixed a conflict with the SG Optimizer plugin
+
+= 4.5.9 =
+* Minor fix
+
+= 4.5.8 =
+* Added Substack icon
 
 = 4.5.7 =
 * Minor fixes

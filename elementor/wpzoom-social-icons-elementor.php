@@ -123,6 +123,7 @@ class WPZOOM_Elementor_Social_Icons {
 		wp_enqueue_style( 
 			'wpzoom-social-icons-elementor', 
 			WPZOOM_SOCIAL_ICONS_PLUGIN_URL . 'elementor/assets/css/wpzoom-social-icons-elementor.css', 
+			array(),
 			WPZOOM_SOCIAL_ICONS_PLUGIN_VERSION
 		);
 	}

@@ -16,3 +16,4 @@ wp-cli.local.yml
 /vendor/
 CLAUDE.md
 .cursor/
+AGENTS.md
