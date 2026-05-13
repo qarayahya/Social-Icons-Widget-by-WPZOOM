@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 4.5.11 =
+* Added compatibility for WordPress 7.0
+
 = 4.2.14 =
 * New icons: X (use x.com/username for the new Twitter icon), Matrix, Element
 

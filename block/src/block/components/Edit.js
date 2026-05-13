@@ -11,11 +11,10 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Component, Fragment } from '@wordpress/element';
-import { withSelect } from '@wordpress/data';
+import { useState, useEffect, useRef, Fragment } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 import { Icon, Button, Popover, Modal, TextareaControl } from '@wordpress/components';
-import { AlignmentToolbar, BlockControls } from '@wordpress/block-editor';
-import { compose } from '@wordpress/compose';
+import { AlignmentToolbar, BlockControls, useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
@@ -27,320 +26,216 @@ import PopoverSearch from './PopoverSearch';
 import SortableArrows from './SortableArrows';
 import ModalColorPicker from './ModalColorPicker';
 
-class Edit extends Component {
-	constructor() {
-		super(...arguments);
+const STYLE_VARIATIONS = {
+	'with-label-canvas-rounded': {
+		canvasType: 'with-label-canvas',
+		showIconsLabel: true,
+		iconsColor: null,
+		iconsLabelColor: '#fff',
+		iconsHoverColor: null,
+		iconsLabelHoverColor: '#fff',
+		iconsFontSize: 18,
+		iconsLabelFontSize: 15,
+		iconsPaddingHorizontal: 5,
+		iconsPaddingVertical: 5,
+		iconsMarginHorizontal: 5,
+		iconsMarginVertical: 5,
+		iconsHasBorder: true,
+		iconsBorderRadius: 50,
+		wasStyled: true,
+		defaultIcon: {
+			icon: 'facebook',
+			color: null,
+			hoverColor: null,
+		},
+	},
+	'with-canvas-rounded': {
+		canvasType: 'with-canvas',
+		showIconsLabel: false,
+		iconsColor: null,
+		iconsLabelColor: '#2e3131',
+		iconsHoverColor: null,
+		iconsLabelHoverColor: '#2e3131',
+		iconsFontSize: 18,
+		iconsLabelFontSize: 16,
+		iconsPaddingHorizontal: 6,
+		iconsPaddingVertical: 6,
+		iconsMarginHorizontal: 5,
+		iconsMarginVertical: 5,
+		iconsHasBorder: true,
+		iconsBorderRadius: 5,
+		wasStyled: true,
+		defaultIcon: {
+			icon: 'facebook',
+			color: '#0866FF',
+			hoverColor: '#0866FF',
+		},
+		selectedIcons: [
+			{ icon: 'facebook', color: '#0866FF', hoverColor: '#0866FF' },
+			{ icon: 'x', color: '#000000', hoverColor: '#000000' },
+			{ icon: 'instagram', color: '#E4405F', hoverColor: '#E4405F' },
+		],
+	},
+	'with-canvas-round': {
+		canvasType: 'with-canvas',
+		showIconsLabel: false,
+		iconsColor: null,
+		iconsLabelColor: '#2e3131',
+		iconsHoverColor: null,
+		iconsLabelHoverColor: '#2e3131',
+		iconsFontSize: 18,
+		iconsLabelFontSize: 16,
+		iconsPaddingHorizontal: 6,
+		iconsPaddingVertical: 6,
+		iconsMarginHorizontal: 5,
+		iconsMarginVertical: 5,
+		iconsHasBorder: true,
+		iconsBorderRadius: 50,
+		wasStyled: true,
+		defaultIcon: {
+			icon: 'facebook',
+			color: '#0866FF',
+			hoverColor: '#0866FF',
+		},
+		selectedIcons: [
+			{ icon: 'facebook', color: '#0866FF', hoverColor: '#0866FF' },
+			{ icon: 'x', color: '#000000', hoverColor: '#000000' },
+			{ icon: 'instagram', color: '#E4405F', hoverColor: '#E4405F' },
+		],
+	},
+	'with-canvas-squared': {
+		canvasType: 'with-canvas',
+		showIconsLabel: false,
+		iconsColor: null,
+		iconsLabelColor: '#2e3131',
+		iconsHoverColor: null,
+		iconsLabelHoverColor: '#2e3131',
+		iconsFontSize: 18,
+		iconsLabelFontSize: 16,
+		iconsPaddingHorizontal: 6,
+		iconsPaddingVertical: 6,
+		iconsMarginHorizontal: 5,
+		iconsMarginVertical: 5,
+		iconsBorderRadius: 0,
+		iconsHasBorder: true,
+		wasStyled: true,
+		defaultIcon: {
+			icon: 'facebook',
+			color: '#0866FF',
+			hoverColor: '#0866FF',
+		},
+		selectedIcons: [
+			{ icon: 'facebook', color: '#0866FF', hoverColor: '#0866FF' },
+			{ icon: 'x', color: '#000000', hoverColor: '#000000' },
+			{ icon: 'instagram', color: '#E4405F', hoverColor: '#E4405F' },
+		],
+	},
+	'without-canvas': {
+		canvasType: 'without-canvas',
+		showIconsLabel: false,
+		iconsColor: null,
+		iconsLabelColor: '#2e3131',
+		iconsHoverColor: null,
+		iconsLabelHoverColor: '#2e3131',
+		iconsFontSize: 18,
+		iconsLabelFontSize: 16,
+		iconsPaddingHorizontal: 6,
+		iconsPaddingVertical: 6,
+		iconsMarginHorizontal: 5,
+		iconsMarginVertical: 5,
+		iconsHasBorder: false,
+		wasStyled: true,
+		defaultIcon: {
+			icon: 'facebook',
+			color: '#0866FF',
+			hoverColor: '#0866FF',
+		},
+		selectedIcons: [
+			{ icon: 'facebook', color: '#0866FF', hoverColor: '#0866FF' },
+			{ icon: 'x', color: '#000000', hoverColor: '#000000' },
+			{ icon: 'instagram', color: '#E4405F', hoverColor: '#E4405F' },
+		],
+	},
+	'without-canvas-with-border': {
+		canvasType: 'without-canvas',
+		showIconsLabel: false,
+		iconsColor: null,
+		iconsLabelColor: 'inherit',
+		iconsHoverColor: null,
+		iconsLabelHoverColor: '#f1f1f1',
+		iconsFontSize: 18,
+		iconsLabelFontSize: 16,
+		iconsPaddingHorizontal: 6,
+		iconsPaddingVertical: 6,
+		iconsMarginHorizontal: 5,
+		iconsMarginVertical: 5,
+		iconsHasBorder: true,
+		iconsBorderRadius: 0,
+		wasStyled: true,
+		defaultIcon: {
+			icon: 'facebook',
+			color: null,
+			hoverColor: null,
+		},
+	},
+	'without-canvas-with-label': {
+		canvasType: 'without-canvas',
+		showIconsLabel: true,
+		iconsColor: null,
+		iconsLabelColor: 'inherit',
+		iconsHoverColor: null,
+		iconsLabelHoverColor: '#f1f1f1',
+		iconsFontSize: 40,
+		iconsLabelFontSize: 15,
+		iconsPaddingHorizontal: 10,
+		iconsPaddingVertical: 10,
+		iconsMarginHorizontal: 0,
+		iconsMarginVertical: 0,
+		iconsHasBorder: false,
+		wasStyled: true,
+		defaultIcon: {
+			icon: 'facebook',
+			color: null,
+			hoverColor: null,
+		},
+	},
+};
 
-		this.state = {
-			isCustomSvgModalOpen: false,
-			customSvgCode: '',
-			activeIconKey: null
-		};
-	}
+function getStyleVariations( styleType, activeStyleName ) {
+	return get( STYLE_VARIATIONS, styleType, false )
+		? get( STYLE_VARIATIONS, styleType, false )
+		: get( STYLE_VARIATIONS, activeStyleName );
+}
 
-	getStyleVariations( styleType ) {
-		const styleVariations = {
-			'with-label-canvas-rounded': {
-				canvasType: 'with-label-canvas',
-				showIconsLabel: true,
-				iconsColor: null,
-				iconsLabelColor: '#fff',
-				iconsHoverColor: null,
-				iconsLabelHoverColor: '#fff',
-				iconsFontSize: 18,
-				iconsLabelFontSize: 15,
-				iconsPaddingHorizontal: 5,
-				iconsPaddingVertical: 5,
-				iconsMarginHorizontal: 5,
-				iconsMarginVertical: 5,
-				iconsHasBorder: true,
-				iconsBorderRadius: 50,
-				wasStyled: true,
-				defaultIcon: {
-					icon: 'facebook',
-					color: null,
-					hoverColor: null,
-				},
-			},
-			'with-canvas-rounded': {
-				canvasType: 'with-canvas',
-				showIconsLabel: false,
-				iconsColor: null,
-				iconsLabelColor: '#2e3131',
-				iconsHoverColor: null,
-				iconsLabelHoverColor: '#2e3131',
-				iconsFontSize: 18,
-				iconsLabelFontSize: 16,
-				iconsPaddingHorizontal: 6,
-				iconsPaddingVertical: 6,
-				iconsMarginHorizontal: 5,
-				iconsMarginVertical: 5,
-				iconsHasBorder: true,
-				iconsBorderRadius: 5,
-				wasStyled: true,
-				defaultIcon: {
-					icon: 'facebook',
-					color: '#0866FF',
-					hoverColor: '#0866FF',
-				},
-				selectedIcons: [
-					{
-						icon: 'facebook',
-						color: '#0866FF',
-						hoverColor: '#0866FF',
-					},
-					{
-						icon: 'x',
-						color: '#000000',
-						hoverColor: '#000000',
-					},
-					{
-						icon: 'instagram',
-						color: '#E4405F',
-						hoverColor: '#E4405F',
-					},
-				],
-			},
-			'with-canvas-round': {
-				canvasType: 'with-canvas',
-				showIconsLabel: false,
-				iconsColor: null,
-				iconsLabelColor: '#2e3131',
-				iconsHoverColor: null,
-				iconsLabelHoverColor: '#2e3131',
-				iconsFontSize: 18,
-				iconsLabelFontSize: 16,
-				iconsPaddingHorizontal: 6,
-				iconsPaddingVertical: 6,
-				iconsMarginHorizontal: 5,
-				iconsMarginVertical: 5,
-				iconsHasBorder: true,
-				iconsBorderRadius: 50,
-				wasStyled: true,
-				defaultIcon: {
-					icon: 'facebook',
-					color: '#0866FF',
-					hoverColor: '#0866FF',
-				},
-				selectedIcons: [
-					{
-						icon: 'facebook',
-						color: '#0866FF',
-						hoverColor: '#0866FF',
-					},
-					{
-						icon: 'x',
-						color: '#000000',
-						hoverColor: '#000000',
-					},
-					{
-						icon: 'instagram',
-						color: '#E4405F',
-						hoverColor: '#E4405F',
-					},
-				],
-			},
-			'with-canvas-squared': {
-				canvasType: 'with-canvas',
-				showIconsLabel: false,
-				iconsColor: null,
-				iconsLabelColor: '#2e3131',
-				iconsHoverColor: null,
-				iconsLabelHoverColor: '#2e3131',
-				iconsFontSize: 18,
-				iconsLabelFontSize: 16,
-				iconsPaddingHorizontal: 6,
-				iconsPaddingVertical: 6,
-				iconsMarginHorizontal: 5,
-				iconsMarginVertical: 5,
-				iconsBorderRadius: 0,
-				iconsHasBorder: true,
-				wasStyled: true,
-				defaultIcon: {
-					icon: 'facebook',
-					color: '#0866FF',
-					hoverColor: '#0866FF',
-				},
-				selectedIcons: [
-					{
-						icon: 'facebook',
-						color: '#0866FF',
-						hoverColor: '#0866FF',
-					},
-					{
-						icon: 'x',
-						color: '#000000',
-						hoverColor: '#000000',
-					},
-					{
-						icon: 'instagram',
-						color: '#E4405F',
-						hoverColor: '#E4405F',
-					},
-				],
-			},
-			'without-canvas': {
-				canvasType: 'without-canvas',
-				showIconsLabel: false,
-				iconsColor: null,
-				iconsLabelColor: '#2e3131',
-				iconsHoverColor: null,
-				iconsLabelHoverColor: '#2e3131',
-				iconsFontSize: 18,
-				iconsLabelFontSize: 16,
-				iconsPaddingHorizontal: 6,
-				iconsPaddingVertical: 6,
-				iconsMarginHorizontal: 5,
-				iconsMarginVertical: 5,
-				iconsHasBorder: false,
-				wasStyled: true,
-				defaultIcon: {
-					icon: 'facebook',
-					color: '#0866FF',
-					hoverColor: '#0866FF',
-				},
-				selectedIcons: [
-					{
-						icon: 'facebook',
-						color: '#0866FF',
-						hoverColor: '#0866FF',
-					},
-					{
-						icon: 'x',
-						color: '#000000',
-						hoverColor: '#000000',
-					},
-					{
-						icon: 'instagram',
-						color: '#E4405F',
-						hoverColor: '#E4405F',
-					},
-				],
-			},
-			'without-canvas-with-border': {
-				canvasType: 'without-canvas',
-				showIconsLabel: false,
-				iconsColor: null,
-				iconsLabelColor: 'inherit',
-				iconsHoverColor: null,
-				iconsLabelHoverColor: '#f1f1f1',
-				iconsFontSize: 18,
-				iconsLabelFontSize: 16,
-				iconsPaddingHorizontal: 6,
-				iconsPaddingVertical: 6,
-				iconsMarginHorizontal: 5,
-				iconsMarginVertical: 5,
-				iconsHasBorder: true,
-				iconsBorderRadius: 0,
-				wasStyled: true,
-				defaultIcon: {
-					icon: 'facebook',
-					color: null,
-					hoverColor: null,
-				},
-			},
-			'without-canvas-with-label': {
-				canvasType: 'without-canvas',
-				showIconsLabel: true,
-				iconsColor: null,
-				iconsLabelColor: 'inherit',
-				iconsHoverColor: null,
-				iconsLabelHoverColor: '#f1f1f1',
-				iconsFontSize: 40,
-				iconsLabelFontSize: 15,
-				iconsPaddingHorizontal: 10,
-				iconsPaddingVertical: 10,
-				iconsMarginHorizontal: 0,
-				iconsMarginVertical: 0,
-				iconsHasBorder: false,
-				wasStyled: true,
-				defaultIcon: {
-					icon: 'facebook',
-					color: null,
-					hoverColor: null,
-				},
-			},
-		};
+export default function Edit( props ) {
+	const { attributes, setAttributes, isSelected, name } = props;
 
-		return get( styleVariations, styleType, false )
-			? get( styleVariations, styleType, false )
-			: get( styleVariations, this.getActiveStyle() );
-	}
+	const [ isCustomSvgModalOpen, setIsCustomSvgModalOpen ] = useState( false );
+	const [ customSvgCode, setCustomSvgCode ] = useState( '' );
+	const [ activeIconKey, setActiveIconKey ] = useState( null );
 
-	getActiveStyle() {
-		const { blockStyles } = this.props;
-		const blockStyle = Helper.getActiveStyle(
-			blockStyles,
-			this.props.className
-		);
-		return ( blockStyle && blockStyle.name ) || '';
-	}
+	const blockStyles = useSelect(
+		( select ) => select( 'core/blocks' ).getBlockStyles( name ),
+		[ name ]
+	);
 
-	// eslint-disable-next-line no-unused-vars
-	componentDidUpdate( prevProps, prevState ) {
-		if (
-			Helper.getBlockStyle( prevProps.className ) !==
-			Helper.getBlockStyle( this.props.className )
-		) {
-			const styleVariation = this.getStyleVariations(
-				this.getActiveStyle()
-			);
+	const blockProps = useBlockProps();
 
-			if ( ! isEmpty( styleVariation ) ) {
-				this.props.setAttributes(
-					omit( styleVariation, [ 'selectedIcons' ] )
-				);
+	const activeStyle = Helper.getActiveStyle( blockStyles, blockProps.className );
+	const activeStyleName = ( activeStyle && activeStyle.name ) || '';
 
-				const clonedSelectedIcons = JSON.parse(
-					JSON.stringify( this.props.attributes.selectedIcons )
-				);
-
-				if ( ! isEmpty( styleVariation.selectedIcons ) ) {
-					clonedSelectedIcons.map( ( item ) => {
-						if ( isEmpty( item.color ) ) {
-							item.color = styleVariation.defaultIcon.color;
-						}
-						if ( isEmpty( item.hoverColor ) ) {
-							item.hoverColor = styleVariation.defaultIcon.hoverColor;
-						}
-						return item;
-					} );
-				}
-
-				if ( ! isEmpty( styleVariation.iconsColor ) ) {
-					clonedSelectedIcons.map( ( item ) => {
-						item.color = styleVariation.iconsColor;
-						return item;
-					} );
-				}
-
-				if ( ! isEmpty( styleVariation.iconsHoverColor ) ) {
-					clonedSelectedIcons.map( ( item ) => {
-						item.hoverColor = styleVariation.iconsHoverColor;
-						return item;
-					} );
-				}
-
-				this.props.setAttributes( {
-					selectedIcons: clonedSelectedIcons,
-				} );
-			}
-		}
-	}
-
-	componentDidMount() {
-		if ( this.props.attributes.wasStyled === true ) {
+	// componentDidMount: apply initial style variation once
+	useEffect( () => {
+		if ( attributes.wasStyled === true ) {
 			return;
 		}
-
-		const styleVariation = this.getStyleVariations( this.getActiveStyle() );
-
+		const styleVariation = getStyleVariations( activeStyleName, activeStyleName );
 		if ( ! isEmpty( styleVariation ) ) {
 			styleVariation.wasStyled = true;
-			this.props.setAttributes( omit( styleVariation, [ 'selectedIcons' ] ) );
+			setAttributes( omit( styleVariation, [ 'selectedIcons' ] ) );
 
 			const clonedSelectedIcons = JSON.parse(
-				JSON.stringify( this.props.attributes.selectedIcons )
+				JSON.stringify( attributes.selectedIcons )
 			);
 
 			if ( ! isEmpty( styleVariation.selectedIcons ) ) {
@@ -365,7 +260,6 @@ class Edit extends Component {
 					return item;
 				} );
 			}
-
 			if ( ! isEmpty( styleVariation.iconsHoverColor ) ) {
 				clonedSelectedIcons.map( ( item ) => {
 					item.hoverColor = styleVariation.iconsHoverColor;
@@ -373,37 +267,81 @@ class Edit extends Component {
 				} );
 			}
 
-			this.props.setAttributes( {
-				selectedIcons: clonedSelectedIcons,
-			} );
+			setAttributes( { selectedIcons: clonedSelectedIcons } );
 		}
-	}
+	}, [] ); // eslint-disable-line react-hooks/exhaustive-deps
 
-	closeModal = () => {
-		this.props.setAttributes( { showModal: false } );
-	};
+	// componentDidUpdate: respond to block style panel changes
+	const prevClassNameRef = useRef( blockProps.className );
+	useEffect( () => {
+		const prevClassName = prevClassNameRef.current;
+		prevClassNameRef.current = blockProps.className;
 
-	getIconsAlignmentStyle = ( alignment ) => {
+		if (
+			Helper.getBlockStyle( prevClassName ) ===
+			Helper.getBlockStyle( blockProps.className )
+		) {
+			return;
+		}
+
+		const styleVariation = getStyleVariations( activeStyleName, activeStyleName );
+		if ( ! isEmpty( styleVariation ) ) {
+			setAttributes( omit( styleVariation, [ 'selectedIcons' ] ) );
+
+			const clonedSelectedIcons = JSON.parse(
+				JSON.stringify( attributes.selectedIcons )
+			);
+
+			if ( ! isEmpty( styleVariation.selectedIcons ) ) {
+				clonedSelectedIcons.map( ( item ) => {
+					if ( isEmpty( item.color ) ) {
+						item.color = styleVariation.defaultIcon.color;
+					}
+					if ( isEmpty( item.hoverColor ) ) {
+						item.hoverColor = styleVariation.defaultIcon.hoverColor;
+					}
+					return item;
+				} );
+			}
+
+			if ( ! isEmpty( styleVariation.iconsColor ) ) {
+				clonedSelectedIcons.map( ( item ) => {
+					item.color = styleVariation.iconsColor;
+					return item;
+				} );
+			}
+			if ( ! isEmpty( styleVariation.iconsHoverColor ) ) {
+				clonedSelectedIcons.map( ( item ) => {
+					item.hoverColor = styleVariation.iconsHoverColor;
+					return item;
+				} );
+			}
+
+			setAttributes( { selectedIcons: clonedSelectedIcons } );
+		}
+	}, [ blockProps.className ] ); // eslint-disable-line react-hooks/exhaustive-deps
+
+	const closeModal = () => setAttributes( { showModal: false } );
+
+	const getIconsAlignmentStyle = ( alignment ) => {
 		const styles = {
 			left: 'flex-start',
 			right: 'flex-end',
 			center: 'center',
 		};
-
 		return styles[ alignment ];
 	};
 
-	setAlignment = ( alignment ) => {
-		this.props.setAttributes( { iconsAlignment: alignment } );
-	};
+	const setAlignment = ( alignment ) =>
+		setAttributes( { iconsAlignment: alignment } );
 
-	saveModalHandler = ( iconObject ) => {
+	const saveModalHandler = ( iconObject ) => {
 		const selectedIconsClone = JSON.parse(
-			JSON.stringify( this.props.attributes.selectedIcons )
+			JSON.stringify( attributes.selectedIcons )
 		);
-		const currentIcon =
-			selectedIconsClone[ this.props.attributes.activeIconIndex ];
-		const updatedIcon = {
+		const currentIcon = selectedIconsClone[ attributes.activeIconIndex ];
+		selectedIconsClone[ attributes.activeIconIndex ] = {
+			...currentIcon,
 			url: iconObject.modalUrl,
 			label: iconObject.modalLabel,
 			icon: iconObject.modalIcon,
@@ -411,28 +349,19 @@ class Edit extends Component {
 			color: iconObject.modalColor,
 			hoverColor: iconObject.modalHoverColor,
 		};
-
-		selectedIconsClone[ this.props.attributes.activeIconIndex ] = {
-			...currentIcon,
-			...updatedIcon,
-		};
-
-		this.props.setAttributes( {
-			selectedIcons: selectedIconsClone,
-			showModal: false,
-		} );
+		setAttributes( { selectedIcons: selectedIconsClone, showModal: false } );
 	};
 
-	insertIcon = ( e ) => {
+	const insertIcon = ( e ) => {
 		e.preventDefault();
 		e.stopPropagation();
-
 		if ( e.detail === 0 ) {
 			return;
 		}
 
-		const styleVariation = this.getStyleVariations(
-			Helper.getBlockStyle( this.props.className )
+		const styleVariation = getStyleVariations(
+			Helper.getBlockStyle( blockProps.className ),
+			activeStyleName
 		);
 
 		const defaultIcon = {
@@ -447,134 +376,112 @@ class Edit extends Component {
 			customSvg: null,
 		};
 
-		if ( ! isEmpty( styleVariation.defaultIcon.color ) ) {
+		if ( styleVariation && ! isEmpty( styleVariation.defaultIcon.color ) ) {
 			defaultIcon.color = styleVariation.defaultIcon.color;
 		}
-
-		if ( ! isEmpty( styleVariation.defaultIcon.hoverColor ) ) {
+		if ( styleVariation && ! isEmpty( styleVariation.defaultIcon.hoverColor ) ) {
 			defaultIcon.hoverColor = styleVariation.defaultIcon.hoverColor;
 		}
 
 		const selectedIconsClone = JSON.parse(
-			JSON.stringify( this.props.attributes.selectedIcons )
+			JSON.stringify( attributes.selectedIcons )
 		);
 		selectedIconsClone.map( ( item ) => ( item.isActive = false ) );
 		const key = selectedIconsClone.push( defaultIcon );
-		this.props.setAttributes( {
-			selectedIcons: selectedIconsClone,
-			activeIconIndex: key - 1,
-		} );
+		setAttributes( { selectedIcons: selectedIconsClone, activeIconIndex: key - 1 } );
 	};
 
 	// eslint-disable-next-line no-unused-vars
-	onClickIconHandler = ( e, key, iconObject ) => {
+	const onClickIconHandler = ( e, key, iconObject ) => {
 		e.preventDefault();
 		const selectedIconsClone = JSON.parse(
-			JSON.stringify( this.props.attributes.selectedIcons )
+			JSON.stringify( attributes.selectedIcons )
 		);
 		selectedIconsClone.map( ( item ) => ( item.isActive = false ) );
 		selectedIconsClone[ key ].showPopover = true;
 		selectedIconsClone[ key ].isActive = true;
-		this.props.setAttributes( {
-			activeIconIndex: key,
-			selectedIcons: selectedIconsClone,
-		} );
+		setAttributes( { activeIconIndex: key, selectedIcons: selectedIconsClone } );
 	};
 
-	popoverCloseHandler = ( key ) => {
+	const popoverCloseHandler = ( key ) => {
 		const selectedIconsClone = JSON.parse(
-			JSON.stringify( this.props.attributes.selectedIcons )
+			JSON.stringify( attributes.selectedIcons )
 		);
 		selectedIconsClone[ key ].showPopover = false;
-		this.props.setAttributes( { selectedIcons: selectedIconsClone } );
+		setAttributes( { selectedIcons: selectedIconsClone } );
 	};
 
-	deleteIconHandler = () => {
+	const deleteIconHandler = () => {
 		const selectedIconsClone = JSON.parse(
-			JSON.stringify( this.props.attributes.selectedIcons )
+			JSON.stringify( attributes.selectedIcons )
 		);
-		selectedIconsClone.splice( this.props.attributes.activeIconIndex, 1 );
-		this.props.setAttributes( {
+		selectedIconsClone.splice( attributes.activeIconIndex, 1 );
+		setAttributes( {
 			selectedIcons: selectedIconsClone,
 			showModal: false,
 			activeIconIndex: 0,
 		} );
 	};
 
-	popoverDeleteIconHandler = ( e, key ) => {
+	const popoverDeleteIconHandler = ( e, key ) => {
 		e.stopPropagation();
-
 		const selectedIconsClone = JSON.parse(
-			JSON.stringify( this.props.attributes.selectedIcons )
+			JSON.stringify( attributes.selectedIcons )
 		);
 		selectedIconsClone.splice( key, 1 );
-		this.props.setAttributes( {
-			selectedIcons: selectedIconsClone,
-			activeIconIndex: 0,
-		} );
+		setAttributes( { selectedIcons: selectedIconsClone, activeIconIndex: 0 } );
 	};
 
-	popoverEditSettingsHandler = ( e, key ) => {
+	const popoverEditSettingsHandler = ( e, key ) => {
 		e.stopPropagation();
 		const selectedIconsClone = JSON.parse(
-			JSON.stringify( this.props.attributes.selectedIcons )
+			JSON.stringify( attributes.selectedIcons )
 		);
 		selectedIconsClone[ key ].showPopover = false;
-
-		this.props.setAttributes( {
-			showModal: true,
-			selectedIcons: selectedIconsClone,
-		} );
+		setAttributes( { showModal: true, selectedIcons: selectedIconsClone } );
 	};
 
-	popoverSearchHandler = ( key, newUrl ) => {
+	const popoverSearchHandler = ( key, newUrl ) => {
 		newUrl = isEmpty( new URI( newUrl ).protocol() )
 			? `https://${ newUrl }`
 			: newUrl;
 
 		const selectedIconsClone = JSON.parse(
-			JSON.stringify( this.props.attributes.selectedIcons )
+			JSON.stringify( attributes.selectedIcons )
 		);
 
-		// Direct WordPress URL detection
-		const isWordPressUrl = newUrl.includes('wordpress.org') ||
-                              newUrl.includes('wordpress.com') ||
-                              newUrl.includes('wp.org');
+		const isWordPressUrl =
+			newUrl.includes( 'wordpress.org' ) ||
+			newUrl.includes( 'wordpress.com' ) ||
+			newUrl.includes( 'wp.org' );
 
-		const iconFromUrl = isWordPressUrl ? 'wordpress' : Helper.filterUrlScheme( newUrl );
+		const iconFromUrl = isWordPressUrl
+			? 'wordpress'
+			: Helper.filterUrlScheme( newUrl );
 		let iconDetected = false;
 
-		// Set WordPress icon directly if it's a WordPress URL
-		if (isWordPressUrl) {
-            selectedIconsClone[ key ].iconKit = 'dashicons';
-            selectedIconsClone[ key ].icon = 'wordpress';
-            iconDetected = true;
-            selectedIconsClone[ key ].label = 'WordPress';
-
-            // Let's set WordPress blue color as default
-            selectedIconsClone[ key ].color = '#0866FF';
-            selectedIconsClone[ key ].hoverColor = '#0866FF';
-        }
-        // Otherwise proceed with normal icon detection
-		else if ( iconFromUrl ) {
+		if ( isWordPressUrl ) {
+			selectedIconsClone[ key ].iconKit = 'dashicons';
+			selectedIconsClone[ key ].icon = 'wordpress';
+			iconDetected = true;
+			selectedIconsClone[ key ].label = 'WordPress';
+			selectedIconsClone[ key ].color = '#0866FF';
+			selectedIconsClone[ key ].hoverColor = '#0866FF';
+		} else if ( iconFromUrl ) {
 			const filteredIcons = Helper.filterIcons( iconFromUrl );
-
 			map( filteredIcons, ( icon, iconKit ) => {
 				if ( ! isEmpty( icon ) ) {
-					filter( icon, function( o ) {
+					filter( icon, function ( o ) {
 						if ( o.icon === iconFromUrl ) {
 							selectedIconsClone[ key ].iconKit = iconKit;
 							selectedIconsClone[ key ].icon = o.icon;
 							iconDetected = true;
-
 							if ( o.color ) {
 								selectedIconsClone[ key ].color = o.color;
 								selectedIconsClone[ key ].hoverColor = o.color;
 							}
-
-							selectedIconsClone[ key ].label = Helper.humanizeIconLabel(
-								iconFromUrl
-							);
+							selectedIconsClone[ key ].label =
+								Helper.humanizeIconLabel( iconFromUrl );
 						}
 					} );
 				}
@@ -586,514 +493,521 @@ class Edit extends Component {
 		selectedIconsClone[ key ].iconDetected = iconDetected;
 		selectedIconsClone[ key ].justUpdated = true;
 
-		this.props.setAttributes( { selectedIcons: selectedIconsClone } );
+		setAttributes( { selectedIcons: selectedIconsClone } );
 
-		// Reset the justUpdated flag after a short delay
-		setTimeout(() => {
+		setTimeout( () => {
 			const resetIconsClone = JSON.parse(
-				JSON.stringify( this.props.attributes.selectedIcons )
+				JSON.stringify( attributes.selectedIcons )
 			);
-			if (resetIconsClone[key]) {
-				resetIconsClone[key].justUpdated = false;
-				this.props.setAttributes( { selectedIcons: resetIconsClone } );
+			if ( resetIconsClone[ key ] ) {
+				resetIconsClone[ key ].justUpdated = false;
+				setAttributes( { selectedIcons: resetIconsClone } );
 			}
-		}, 2000);
+		}, 2000 );
 	};
 
-	moveLeftHandler = ( e, key ) => {
+	const moveLeftHandler = ( e, key ) => {
 		let selectedIconsClone = JSON.parse(
-			JSON.stringify( this.props.attributes.selectedIcons )
+			JSON.stringify( attributes.selectedIcons )
 		);
 		selectedIconsClone = Helper.arrayMove( selectedIconsClone, key, key - 1 );
-		this.props.setAttributes( {
-			selectedIcons: selectedIconsClone,
-			activeIconIndex: key - 1,
-		} );
+		setAttributes( { selectedIcons: selectedIconsClone, activeIconIndex: key - 1 } );
 	};
 
-	moveRightHandler = ( e, key ) => {
+	const moveRightHandler = ( e, key ) => {
 		let selectedIconsClone = JSON.parse(
-			JSON.stringify( this.props.attributes.selectedIcons )
+			JSON.stringify( attributes.selectedIcons )
 		);
 		selectedIconsClone = Helper.arrayMove( selectedIconsClone, key, key + 1 );
-		this.props.setAttributes( {
-			selectedIcons: selectedIconsClone,
-			activeIconIndex: key + 1,
-		} );
+		setAttributes( { selectedIcons: selectedIconsClone, activeIconIndex: key + 1 } );
 	};
 
-	getRelAttr = () => {
+	const getRelAttr = () => {
 		let relAttr = [];
-
-		if ( this.props.attributes.nofollow ) {
-			relAttr.push( 'nofollow' );
-		}
-		if ( this.props.attributes.noreferrer ) {
-			relAttr.push( 'noreferrer' );
-		}
-		if ( this.props.attributes.noopener ) {
-			relAttr.push( 'noopener' );
-		}
-		if ( this.props.attributes.relme ) {
-			relAttr.push( 'me' );
-		}
-		if ( this.props.attributes.openLinkInNewTab ) {
-			relAttr = [ 'noopener' ];
-		}
-
+		if ( attributes.nofollow ) relAttr.push( 'nofollow' );
+		if ( attributes.noreferrer ) relAttr.push( 'noreferrer' );
+		if ( attributes.noopener ) relAttr.push( 'noopener' );
+		if ( attributes.relme ) relAttr.push( 'me' );
+		if ( attributes.openLinkInNewTab ) relAttr = [ 'noopener' ];
 		return relAttr;
 	};
 
-	getTarget = () => {
-		if( this.props.attributes.openLinkInNewTab ) {
-			return '_blank';
-		}
-		return undefined;
+	const getTarget = () =>
+		attributes.openLinkInNewTab ? '_blank' : undefined;
+
+	const openCustomSvgModal = ( key ) => {
+		setIsCustomSvgModalOpen( true );
+		setActiveIconKey( key );
+		setCustomSvgCode( '' );
 	};
 
-	openCustomSvgModal = (key) => {
-		this.setState({
-			isCustomSvgModalOpen: true,
-			activeIconKey: key,
-			customSvgCode: ''
-		});
-	}
+	const closeCustomSvgModal = () => {
+		setIsCustomSvgModalOpen( false );
+		setCustomSvgCode( '' );
+		setActiveIconKey( null );
+	};
 
-	closeCustomSvgModal = () => {
-		this.setState({
-			isCustomSvgModalOpen: false,
-			customSvgCode: '',
-			activeIconKey: null
-		});
-	}
+	const applySvgIcon = () => {
+		if ( ! customSvgCode || customSvgCode.trim() === '' ) return;
+		if ( activeIconKey === null ) return;
 
-	updateCustomSvgCode = (value) => {
-		this.setState({ customSvgCode: value });
-	}
-
-	applySvgIcon = () => {
-		const { customSvgCode, activeIconKey } = this.state;
-
-		if (!customSvgCode || customSvgCode.trim() === '') {
-			return;
-		}
-
-		if (activeIconKey === null) {
-			return;
-		}
-
-		// Create a sanitized SVG code (basic sanitization, may need enhancement)
-		const sanitizedSvg = customSvgCode.replace(/javascript:/gi, '')
-										.replace(/on\w+=/gi, '')
-										.replace(/data:/gi, '');
+		const sanitizedSvg = customSvgCode
+			.replace( /javascript:/gi, '' )
+			.replace( /on\w+=/gi, '' )
+			.replace( /data:/gi, '' );
 
 		const selectedIconsClone = JSON.parse(
-			JSON.stringify(this.props.attributes.selectedIcons)
+			JSON.stringify( attributes.selectedIcons )
 		);
+		selectedIconsClone[ activeIconKey ].iconKit = 'svg';
+		selectedIconsClone[ activeIconKey ].icon = 'custom-svg';
+		selectedIconsClone[ activeIconKey ].customSvg = sanitizedSvg;
+		selectedIconsClone[ activeIconKey ].showPopover = false;
 
-		// Set the custom SVG for the selected icon
-		selectedIconsClone[activeIconKey].iconKit = 'svg';
-		selectedIconsClone[activeIconKey].icon = 'custom-svg';
-		selectedIconsClone[activeIconKey].customSvg = sanitizedSvg;
-		selectedIconsClone[activeIconKey].showPopover = false;
-
-		// Update the label if it's empty
-		if (!selectedIconsClone[activeIconKey].label || selectedIconsClone[activeIconKey].label === '') {
-			selectedIconsClone[activeIconKey].label = __('Custom Icon', 'social-icons-widget-by-wpzoom');
+		if (
+			! selectedIconsClone[ activeIconKey ].label ||
+			selectedIconsClone[ activeIconKey ].label === ''
+		) {
+			selectedIconsClone[ activeIconKey ].label = __(
+				'Custom Icon',
+				'social-icons-widget-by-wpzoom'
+			);
 		}
 
-		this.props.setAttributes({ selectedIcons: selectedIconsClone });
-		this.closeCustomSvgModal();
+		setAttributes( { selectedIcons: selectedIconsClone } );
+		closeCustomSvgModal();
+	};
+
+	// --- Render ---
+
+	let className = blockProps.className;
+
+	if ( Helper.getBlockStyle( className ) === null ) {
+		className = classnames( className, 'is-style-with-canvas-round' );
+	}
+	if ( attributes.showIconsLabel ) {
+		className = classnames( className, 'show-icon-labels-style' );
 	}
 
-	render() {
-		const { attributes, setAttributes, isSelected } = this.props;
-		const { isCustomSvgModalOpen, customSvgCode } = this.state;
+	const relAttr = getRelAttr();
+	const target = getTarget();
 
-		let { className } = this.props;
+	const IconsList = attributes.selectedIcons.map( ( list, key ) => {
+		const showIconsLabel = attributes.showIconsLabel ? (
+			<span className={ classnames( 'icon-label' ) }>{ list.label }</span>
+		) : (
+			''
+		);
 
-		if ( Helper.getBlockStyle( className ) === null ) {
-			className = classnames( className, 'is-style-with-canvas-round' );
-		}
-		if( attributes.showIconsLabel ) {
-			className = classnames( className, 'show-icon-labels-style' );
-		}
-
-		const IconsList = attributes.selectedIcons.map( ( list, key ) => {
-			const showIconsLabel = attributes.showIconsLabel ? (
-				<span className={ classnames( 'icon-label' ) }>{ list.label }</span>
-			) : (
-				''
+		let iconContent;
+		if ( list.iconKit === 'svg' && list.customSvg ) {
+			iconContent = (
+				<span
+					className={ classnames( 'social-icon', 'social-icon-svg' ) }
+					dangerouslySetInnerHTML={ { __html: list.customSvg } }
+				/>
 			);
-
-			const relAttr = this.getRelAttr();
-			const getTarget = this.getTarget();
-
-			let iconContent;
-
-			if (list.iconKit === 'svg' && list.customSvg) {
-				// Render the custom SVG icon
-				iconContent = (
-					<span
-						className={classnames('social-icon', 'social-icon-svg')}
-						dangerouslySetInnerHTML={{ __html: list.customSvg }}
-					></span>
-				);
-			} else {
-				// Render the standard icon font
-				iconContent = (
-					<span
-						className={classnames(
-							Helper.getIconClassList(list.iconKit, list.icon)
-						)}
-					></span>
-				);
-			}
-
-			return (
-				<Fragment key={ key }>
-					<a
-						onClick={ ( e ) => this.onClickIconHandler( e, key, list ) }
-						href={ list.url }
-						className={ classnames( 'social-icon-link', {
-							selected: list.isActive,
-						} ) }
-						target={ getTarget }
-						rel={ relAttr.length ? relAttr.join( ' ' ) : undefined }
-						title={ list.label }
-						style={ {
-							'--wpz-social-icons-block-item-color': list.color,
-							'--wpz-social-icons-block-item-color-hover':
-								list.hoverColor,
-						} }
-					>
-						{iconContent}
-						{ showIconsLabel }
-						{ list.showPopover && isSelected && (
-							<Popover
-								className={ classnames(
-									'wpzoom-social-icons-popover'
-								) }
-								key={ key }
-								position={ 'bottom center' }
-								onClose={ () => this.popoverCloseHandler( key ) }
-							>
-								<div className={ classnames( 'popover-content' ) }>
-									<div className="popover-header">
-										<span className="popover-title">{ __( 'Social Icon Settings', 'social-icons-widget-by-wpzoom' ) }</span>
-									</div>
-
-									<div className={ classnames( 'popover-url-wrapper' ) }>
-										<div className="popover-section-title">
-											<Icon icon="admin-links" />
-											{ __( 'URL & ICON', 'social-icons-widget-by-wpzoom' ) }
-										</div>
-										<div className="popover-description">
-											{ __( 'Enter a website URL to automatically detect its icon', 'social-icons-widget-by-wpzoom' ) }
-										</div>
-										<div className="popover-url-input-container">
-											<PopoverSearch
-												key={ key }
-												value={ list.url }
-												save={ ( url ) =>
-													this.popoverSearchHandler(
-														key,
-														url
-													)
-												}
-											/>
-										</div>
-										{list.justUpdated && (
-											<div className={`icon-status-message ${list.iconDetected ? 'success' : 'notice'}`}>
-												<Icon icon={list.iconDetected ? 'yes-alt' : 'info-outline'} />
-												{list.iconDetected
-													? __( 'Icon detected and applied!', 'social-icons-widget-by-wpzoom' )
-													: __( 'No matching icon found. Choose manually below.', 'social-icons-widget-by-wpzoom' )
-												}
-											</div>
-										)}
-										<div className="popover-alternate-options">
-											<span>{ __( 'Or', 'social-icons-widget-by-wpzoom' ) }</span>
-											<Button
-												isPrimary
-												onClick={ ( e ) =>
-													this.popoverEditSettingsHandler(
-														e,
-														key
-													)
-												}
-												className="popover-edit-details-button"
-											>
-                                                <Icon icon="edit" />
-												{ __(
-													'Choose Icon & Edit Details',
-													'social-icons-widget-by-wpzoom'
-												) }
-											</Button>
-
-											<div className="popover-section-divider">
-												<span>{ __( 'Or', 'social-icons-widget-by-wpzoom' ) }</span>
-											</div>
-
-											<Button
-												className="popover-custom-svg-button"
-												onClick={() => this.openCustomSvgModal(key)}
-											>
-                                                <Icon icon="editor-code" />
-												{ __(
-													'Insert Custom SVG Icon',
-													'social-icons-widget-by-wpzoom'
-												) }
-											</Button>
-										</div>
-									</div>
-
-									<div className="popover-colors-section">
-										<div className="popover-section-title">
-											<Icon icon="art" />
-											{ __( 'COLORS', 'social-icons-widget-by-wpzoom' ) }
-										</div>
-										<div className="color-pickers-container">
-											<div className="color-picker-option" data-tooltip={ __( 'Change color', 'social-icons-widget-by-wpzoom' ) }>
-												<span className="color-label">{ __( 'Normal:', 'social-icons-widget-by-wpzoom' ) }</span>
-												<ModalColorPicker
-													title={ __( 'Icon Color', 'social-icons-widget-by-wpzoom' ) }
-													className={ classnames(
-														'popover-color-picker'
-													) }
-													save={ ( arg ) => {
-														const selectedIconsClone = [
-															...attributes.selectedIcons,
-														];
-														selectedIconsClone[
-															attributes.activeIconIndex
-														].color = arg.color;
-														setAttributes( {
-															selectedIcons: selectedIconsClone,
-														} );
-													} }
-													color={ list.color }
-												/>
-											</div>
-											<div className="color-picker-option" data-tooltip={ __( 'Change color', 'social-icons-widget-by-wpzoom' ) }>
-												<span className="color-label">{ __( 'Hover:', 'social-icons-widget-by-wpzoom' ) }</span>
-												<ModalColorPicker
-													title={ __( 'Hover Color', 'social-icons-widget-by-wpzoom' ) }
-													className={ classnames(
-														'popover-color-picker'
-													) }
-													save={ ( arg ) => {
-														const selectedIconsClone = [
-															...attributes.selectedIcons,
-														];
-														selectedIconsClone[
-															attributes.activeIconIndex
-														].hoverColor = arg.color;
-														setAttributes( {
-															selectedIcons: selectedIconsClone,
-														} );
-													} }
-													color={ list.hoverColor }
-												/>
-											</div>
-										</div>
-									</div>
-
-									{ attributes.selectedIcons.length > 1 && (
-										<div className="popover-footer">
-											<Button
-												isDestructive
-												onClick={ ( e ) =>
-													this.popoverDeleteIconHandler(
-														e,
-														key
-													)
-												}
-												className="delete-icon-button"
-											>
-												<Icon icon="trash" />
-												{ __(
-													'Delete Icon',
-													'social-icons-widget-by-wpzoom'
-												) }
-											</Button>
-										</div>
-									) }
-								</div>
-							</Popover>
-						) }
-					</a>
-					<SortableArrows
-						left={ this.moveLeftHandler }
-						right={ this.moveRightHandler }
-						length={ attributes.selectedIcons.length }
-						isActive={ list.isActive && isSelected }
-						itemKey={ key }
-					/>
-				</Fragment>
+		} else {
+			iconContent = (
+				<span
+					className={ classnames(
+						Helper.getIconClassList( list.iconKit, list.icon )
+					) }
+				/>
 			);
-		} );
+		}
 
 		return (
-			<Fragment>
-				<Inspector { ...this.props } />
-				<BlockControls>
-					<AlignmentToolbar
-						value={ attributes.iconsAlignment }
-						onChange={ ( iconsAlignment ) =>
-							this.setAlignment( iconsAlignment )
-						}
-					></AlignmentToolbar>
-				</BlockControls>
-				<div
-					className={ className }
+			<Fragment key={ key }>
+				<a
+					onClick={ ( e ) => onClickIconHandler( e, key, list ) }
+					href={ list.url }
+					className={ classnames( 'social-icon-link', {
+						selected: list.isActive,
+					} ) }
 					style={ {
-						'--wpz-social-icons-block-item-font-size': Helper.addPixelsPipe(
-							attributes.iconsFontSize
-						),
-						'--wpz-social-icons-block-item-padding-horizontal': Helper.addPixelsPipe(
-							attributes.iconsPaddingHorizontal
-						),
-						'--wpz-social-icons-block-item-padding-vertical': Helper.addPixelsPipe(
-							attributes.iconsPaddingVertical
-						),
-						'--wpz-social-icons-block-item-margin-horizontal': Helper.addPixelsPipe(
-							attributes.iconsMarginHorizontal
-						),
-						'--wpz-social-icons-block-item-margin-vertical': Helper.addPixelsPipe(
-							attributes.iconsMarginVertical
-						),
-						'--wpz-social-icons-block-item-border-radius': Helper.addPixelsPipe(
-							attributes.iconsBorderRadius
-						),
-						'--wpz-social-icons-block-label-font-size': Helper.addPixelsPipe(
-							attributes.iconsLabelFontSize
-						),
-						'--wpz-social-icons-block-label-color':
-							attributes.iconsLabelColor,
-						'--wpz-social-icons-block-label-color-hover':
-							attributes.iconsLabelHoverColor,
-						'--wpz-social-icons-alignment': this.getIconsAlignmentStyle(
-							attributes.iconsAlignment
-						),
+						'--wpz-social-icons-block-item-color': list.color,
+						'--wpz-social-icons-block-item-color-hover': list.hoverColor,
 					} }
 				>
-					{ IconsList }
-					{ isSelected && (
-						<Button
-							type={ 'button' }
-							onClick={ this.insertIcon }
-							style={ { padding: attributes.iconsPadding } }
-							className={ 'insert-icon' }
+					{ iconContent }
+					{ showIconsLabel }
+					{ list.showPopover && isSelected && (
+						<Popover
+							className={ classnames( 'wpzoom-social-icons-popover' ) }
+							key={ key }
+							position="bottom center"
+							onClose={ () => popoverCloseHandler( key ) }
 						>
-							<Icon icon={ 'insert' } size={ '20' } />
-						</Button>
-					) }
-					{ attributes.selectedIcons[ attributes.activeIconIndex ] && (
-						<SocialIconsModal
-							className={ classnames(
-								Helper.getBlockStyle( className )
-							) }
-							showIconsLabel={ attributes.showIconsLabel }
-							iconsBorderRadius={ attributes.iconsBorderRadius }
-							show={ attributes.showModal }
-							url={
-								attributes.selectedIcons[
-									attributes.activeIconIndex
-								].url
-							}
-							label={
-								attributes.selectedIcons[
-									attributes.activeIconIndex
-								].label
-							}
-							icon={
-								attributes.selectedIcons[
-									attributes.activeIconIndex
-								].icon
-							}
-							iconKit={
-								attributes.selectedIcons[
-									attributes.activeIconIndex
-								].iconKit
-							}
-							color={
-								attributes.selectedIcons[
-									attributes.activeIconIndex
-								].color
-							}
-							hoverColor={
-								attributes.selectedIcons[
-									attributes.activeIconIndex
-								].hoverColor
-							}
-							save={ this.saveModalHandler }
-							delete={ this.deleteIconHandler }
-							showDeleteBtn={ attributes.selectedIcons.length > 1 }
-							onClose={ this.closeModal }
-						/>
-					) }
+							<div className={ classnames( 'popover-content' ) }>
+								<div className="popover-header">
+									<span className="popover-title">
+										{ __(
+											'Social Icon Settings',
+											'social-icons-widget-by-wpzoom'
+										) }
+									</span>
+								</div>
 
-					{isCustomSvgModalOpen && (
-						<Modal
-							title={__('Insert Custom SVG Icon', 'social-icons-widget-by-wpzoom')}
-							onRequestClose={this.closeCustomSvgModal}
-							className="wpzoom-custom-svg-modal"
-						>
-							<div className="wpzoom-custom-svg-modal-content">
-								<p className="wpzoom-custom-svg-modal-description">
-									{__("Paste your SVG code below. Make sure it's clean and valid SVG code for security reasons.", 'social-icons-widget-by-wpzoom')}
-								</p>
-
-								<TextareaControl
-									label={__('SVG Code', 'social-icons-widget-by-wpzoom')}
-									help={__('Paste SVG code here. For security reasons, scripts and event handlers will be removed.', 'social-icons-widget-by-wpzoom')}
-									value={customSvgCode}
-									onChange={this.updateCustomSvgCode}
-									rows={10}
-									className="wpzoom-custom-svg-textarea"
-								/>
-
-								{customSvgCode && customSvgCode.trim() !== '' && (
-									<div className="wpzoom-custom-svg-preview">
-										<p className="wpzoom-custom-svg-preview-title">{__('Preview:', 'social-icons-widget-by-wpzoom')}</p>
-										<div
-											className="wpzoom-custom-svg-preview-box"
-											dangerouslySetInnerHTML={{ __html: customSvgCode }}
+								<div className={ classnames( 'popover-url-wrapper' ) }>
+									<div className="popover-section-title">
+										<Icon icon="admin-links" />
+										{ __( 'URL & ICON', 'social-icons-widget-by-wpzoom' ) }
+									</div>
+									<div className="popover-description">
+										{ __(
+											'Enter a website URL to automatically detect its icon',
+											'social-icons-widget-by-wpzoom'
+										) }
+									</div>
+									<div className="popover-url-input-container">
+										<PopoverSearch
+											key={ key }
+											value={ list.url }
+											save={ ( url ) =>
+												popoverSearchHandler( key, url )
+											}
 										/>
 									</div>
-								)}
+									{ list.justUpdated && (
+										<div
+											className={ `icon-status-message ${ list.iconDetected ? 'success' : 'notice' }` }
+										>
+											<Icon
+												icon={
+													list.iconDetected
+														? 'yes-alt'
+														: 'info-outline'
+												}
+											/>
+											{ list.iconDetected
+												? __(
+														'Icon detected and applied!',
+														'social-icons-widget-by-wpzoom'
+												  )
+												: __(
+														'No matching icon found. Choose manually below.',
+														'social-icons-widget-by-wpzoom'
+												  ) }
+										</div>
+									) }
+									<div className="popover-alternate-options">
+										<span>
+											{ __( 'Or', 'social-icons-widget-by-wpzoom' ) }
+										</span>
+										<Button
+											isPrimary
+											onClick={ ( e ) =>
+												popoverEditSettingsHandler( e, key )
+											}
+											className="popover-edit-details-button"
+										>
+											<Icon icon="edit" />
+											{ __(
+												'Choose Icon & Edit Details',
+												'social-icons-widget-by-wpzoom'
+											) }
+										</Button>
 
-								<div className="wpzoom-custom-svg-modal-buttons">
-									<Button
-										isPrimary
-										onClick={this.applySvgIcon}
-										disabled={!customSvgCode || customSvgCode.trim() === ''}
-									>
-										{__('Apply SVG Icon', 'social-icons-widget-by-wpzoom')}
-									</Button>
-									<Button
-										isSecondary
-										onClick={this.closeCustomSvgModal}
-									>
-										{__('Cancel', 'social-icons-widget-by-wpzoom')}
-									</Button>
+										<div className="popover-section-divider">
+											<span>
+												{ __( 'Or', 'social-icons-widget-by-wpzoom' ) }
+											</span>
+										</div>
+
+										<Button
+											className="popover-custom-svg-button"
+											onClick={ () => openCustomSvgModal( key ) }
+										>
+											<Icon icon="editor-code" />
+											{ __(
+												'Insert Custom SVG Icon',
+												'social-icons-widget-by-wpzoom'
+											) }
+										</Button>
+									</div>
 								</div>
+
+								<div className="popover-colors-section">
+									<div className="popover-section-title">
+										<Icon icon="art" />
+										{ __( 'COLORS', 'social-icons-widget-by-wpzoom' ) }
+									</div>
+									<div className="color-pickers-container">
+										<div
+											className="color-picker-option"
+											data-tooltip={ __(
+												'Change color',
+												'social-icons-widget-by-wpzoom'
+											) }
+										>
+											<span className="color-label">
+												{ __(
+													'Normal:',
+													'social-icons-widget-by-wpzoom'
+												) }
+											</span>
+											<ModalColorPicker
+												title={ __(
+													'Icon Color',
+													'social-icons-widget-by-wpzoom'
+												) }
+												className={ classnames(
+													'popover-color-picker'
+												) }
+												save={ ( arg ) => {
+													const selectedIconsClone = [
+														...attributes.selectedIcons,
+													];
+													selectedIconsClone[
+														attributes.activeIconIndex
+													].color = arg.color;
+													setAttributes( {
+														selectedIcons: selectedIconsClone,
+													} );
+												} }
+												color={ list.color }
+											/>
+										</div>
+										<div
+											className="color-picker-option"
+											data-tooltip={ __(
+												'Change color',
+												'social-icons-widget-by-wpzoom'
+											) }
+										>
+											<span className="color-label">
+												{ __(
+													'Hover:',
+													'social-icons-widget-by-wpzoom'
+												) }
+											</span>
+											<ModalColorPicker
+												title={ __(
+													'Hover Color',
+													'social-icons-widget-by-wpzoom'
+												) }
+												className={ classnames(
+													'popover-color-picker'
+												) }
+												save={ ( arg ) => {
+													const selectedIconsClone = [
+														...attributes.selectedIcons,
+													];
+													selectedIconsClone[
+														attributes.activeIconIndex
+													].hoverColor = arg.color;
+													setAttributes( {
+														selectedIcons: selectedIconsClone,
+													} );
+												} }
+												color={ list.hoverColor }
+											/>
+										</div>
+									</div>
+								</div>
+
+								{ attributes.selectedIcons.length > 1 && (
+									<div className="popover-footer">
+										<Button
+											isDestructive
+											onClick={ ( e ) =>
+												popoverDeleteIconHandler( e, key )
+											}
+											className="delete-icon-button"
+										>
+											<Icon icon="trash" />
+											{ __(
+												'Delete Icon',
+												'social-icons-widget-by-wpzoom'
+											) }
+										</Button>
+									</div>
+								) }
 							</div>
-						</Modal>
-					)}
-				</div>
+						</Popover>
+					) }
+				</a>
+				<SortableArrows
+					left={ moveLeftHandler }
+					right={ moveRightHandler }
+					length={ attributes.selectedIcons.length }
+					isActive={ list.isActive && isSelected }
+					itemKey={ key }
+				/>
 			</Fragment>
 		);
-	}
+	} );
+
+	return (
+		<Fragment>
+			<Inspector { ...props } />
+			<BlockControls>
+				<AlignmentToolbar
+					value={ attributes.iconsAlignment }
+					onChange={ ( iconsAlignment ) => setAlignment( iconsAlignment ) }
+				/>
+			</BlockControls>
+			<div
+				{ ...blockProps }
+				className={ className }
+				style={ {
+					...blockProps.style,
+					'--wpz-social-icons-block-item-font-size': Helper.addPixelsPipe(
+						attributes.iconsFontSize
+					),
+					'--wpz-social-icons-block-item-padding-horizontal': Helper.addPixelsPipe(
+						attributes.iconsPaddingHorizontal
+					),
+					'--wpz-social-icons-block-item-padding-vertical': Helper.addPixelsPipe(
+						attributes.iconsPaddingVertical
+					),
+					'--wpz-social-icons-block-item-margin-horizontal': Helper.addPixelsPipe(
+						attributes.iconsMarginHorizontal
+					),
+					'--wpz-social-icons-block-item-margin-vertical': Helper.addPixelsPipe(
+						attributes.iconsMarginVertical
+					),
+					'--wpz-social-icons-block-item-border-radius': Helper.addPixelsPipe(
+						attributes.iconsBorderRadius
+					),
+					'--wpz-social-icons-block-label-font-size': Helper.addPixelsPipe(
+						attributes.iconsLabelFontSize
+					),
+					'--wpz-social-icons-block-label-color': attributes.iconsLabelColor,
+					'--wpz-social-icons-block-label-color-hover':
+						attributes.iconsLabelHoverColor,
+					'--wpz-social-icons-alignment': getIconsAlignmentStyle(
+						attributes.iconsAlignment
+					),
+				} }
+			>
+				{ IconsList }
+				{ isSelected && (
+					<Button
+						type="button"
+						onClick={ insertIcon }
+						style={ { padding: attributes.iconsPadding } }
+						className="insert-icon"
+					>
+						<Icon icon="insert" size="20" />
+					</Button>
+				) }
+				{ attributes.selectedIcons[ attributes.activeIconIndex ] && (
+					<SocialIconsModal
+						className={ classnames(
+							Helper.getBlockStyle( className )
+						) }
+						showIconsLabel={ attributes.showIconsLabel }
+						iconsBorderRadius={ attributes.iconsBorderRadius }
+						show={ attributes.showModal }
+						url={
+							attributes.selectedIcons[ attributes.activeIconIndex ]
+								.url
+						}
+						label={
+							attributes.selectedIcons[ attributes.activeIconIndex ]
+								.label
+						}
+						icon={
+							attributes.selectedIcons[ attributes.activeIconIndex ]
+								.icon
+						}
+						iconKit={
+							attributes.selectedIcons[ attributes.activeIconIndex ]
+								.iconKit
+						}
+						color={
+							attributes.selectedIcons[ attributes.activeIconIndex ]
+								.color
+						}
+						hoverColor={
+							attributes.selectedIcons[ attributes.activeIconIndex ]
+								.hoverColor
+						}
+						save={ saveModalHandler }
+						delete={ deleteIconHandler }
+						showDeleteBtn={ attributes.selectedIcons.length > 1 }
+						onClose={ closeModal }
+					/>
+				) }
+
+				{ isCustomSvgModalOpen && (
+					<Modal
+						title={ __(
+							'Insert Custom SVG Icon',
+							'social-icons-widget-by-wpzoom'
+						) }
+						onRequestClose={ closeCustomSvgModal }
+						className="wpzoom-custom-svg-modal"
+					>
+						<div className="wpzoom-custom-svg-modal-content">
+							<p className="wpzoom-custom-svg-modal-description">
+								{ __(
+									"Paste your SVG code below. Make sure it's clean and valid SVG code for security reasons.",
+									'social-icons-widget-by-wpzoom'
+								) }
+							</p>
+							<TextareaControl
+								label={ __(
+									'SVG Code',
+									'social-icons-widget-by-wpzoom'
+								) }
+								help={ __(
+									'Paste SVG code here. For security reasons, scripts and event handlers will be removed.',
+									'social-icons-widget-by-wpzoom'
+								) }
+								value={ customSvgCode }
+								onChange={ ( value ) =>
+									setCustomSvgCode( value )
+								}
+								rows={ 10 }
+								className="wpzoom-custom-svg-textarea"
+							/>
+							{ customSvgCode && customSvgCode.trim() !== '' && (
+								<div className="wpzoom-custom-svg-preview">
+									<p className="wpzoom-custom-svg-preview-title">
+										{ __(
+											'Preview:',
+											'social-icons-widget-by-wpzoom'
+										) }
+									</p>
+									<div
+										className="wpzoom-custom-svg-preview-box"
+										dangerouslySetInnerHTML={ {
+											__html: customSvgCode,
+										} }
+									/>
+								</div>
+							) }
+							<div className="wpzoom-custom-svg-modal-buttons">
+								<Button
+									isPrimary
+									onClick={ applySvgIcon }
+									disabled={
+										! customSvgCode ||
+										customSvgCode.trim() === ''
+									}
+								>
+									{ __(
+										'Apply SVG Icon',
+										'social-icons-widget-by-wpzoom'
+									) }
+								</Button>
+								<Button
+									isSecondary
+									onClick={ closeCustomSvgModal }
+								>
+									{ __(
+										'Cancel',
+										'social-icons-widget-by-wpzoom'
+									) }
+								</Button>
+							</div>
+						</div>
+					</Modal>
+				) }
+			</div>
+		</Fragment>
+	);
 }
-
-const applyWithSelect = withSelect( ( select, props ) => {
-	const { getBlockStyles } = select( 'core/blocks' );
-
-	return {
-		blockStyles: getBlockStyles( props.name ),
-	};
-} );
-
-export default compose( applyWithSelect )( Edit );
