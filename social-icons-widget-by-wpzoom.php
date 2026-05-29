@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:         Social Icons & Sharing Buttons by WPZOOM
+ * Plugin Name:         Social Icons, Share Buttons & Click to Chat by WPZOOM
  * Plugin URI:          https://www.wpzoom.com/plugins/social-share/
- * Description:         Add Social Icons and Share Buttons to your website easily. Link to your social media profiles or let visitors share your content on popular networks. Supports over 400 social media icons, customizable colors, and drag-and-drop sorting.
- * Version:             4.5.11
+ * Description:         Add social icons, share buttons, and a floating Click to Chat button to your website. Link to your social profiles, let visitors share your content, and connect instantly via WhatsApp, Telegram, Messenger, and Viber. Supports 400+ icons, customizable colors, and drag-and-drop sorting.
+ * Version:             4.6.0
  * Author:              WPZOOM
  * Author URI:          https://www.wpzoom.com/
  * Text Domain:         social-icons-widget-by-wpzoom

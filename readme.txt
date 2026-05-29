@@ -1,15 +1,15 @@
-=== Social Icons Widget & Block - Social Media Icons & Share Buttons ===
+=== WPZOOM Connect: Social Icons Widget, Share Buttons & Click to Chat ===
 Contributors: WPZOOM, ciorici
 Donate link: https://www.wpzoom.com/
-Tags: social icons, social media icons, share buttons, social sharing, social media widget
+Tags: social icons, share buttons, click to chat, whatsapp, social sharing
 Requires at least: 6.5
 Requires PHP: 7.4
 Tested up to: 7.0
-Stable tag: 4.5.11
+Stable tag: 4.6.0
 License: GNU General Public License v2.0 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Social media icons plugin for WordPress - Add 400+ social icons and share buttons. Gutenberg block, widget & Elementor support. GDPR compliant.
+Social icons, share buttons & a floating Click to Chat button for WhatsApp, Telegram, Messenger & Viber. Gutenberg block, widget & Elementor.
 
 == Description ==
 
@@ -24,9 +24,15 @@ Social media icons plugin for WordPress - Add 400+ social icons and share button
 
 **Social Icons & Sharing Buttons** helps you to add social media icons and sharing buttons to your website. The plugin includes several icon sets, which gives you the possibility to use the widget for more than just linking to your social media profiles. You can use generic icons to add links to anything you want, and enable sharing buttons to let visitors share your content across social networks.
 
+It also includes a **Click to Chat** floating contact button so visitors can message you instantly on **WhatsApp**, **Telegram**, **Facebook Messenger**, and **Viber** with a single tap — perfect for turning visitors into customers. Add a WhatsApp chat button, a click-to-chat launcher, or a floating contact widget without writing any code.
+
 > With the help of WPZOOM's excellent Social Icons Widget plugin, you can link to all your social network profiles and add sharing buttons in no time, letting your visitors easily get in touch with you on all social media channels and share your content.
 > ⭐️⭐️⭐️⭐️⭐️
 > WPKlik
+
+= What's new in 4.6.0 =
+* **NEW: Click to Chat Floating Buttons**
+* **NEW: Connect visitors instantly via WhatsApp, Telegram, Messenger & Viber**
 
 = What's new in 4.5.0 =
 * **NEW: Social Sharing Buttons Block**
@@ -70,6 +76,11 @@ You can view the plugin live in all our themes at [WPZOOM](https://www.wpzoom.co
 * Print Button to Trigger Browser Print Dialog
 * Copy Link Button with Visual Feedback
 * X/Twitter Username Integration (via parameter)
+
+**Click to Chat Floating Buttons:**
+* Floating contact launcher that connects visitors to WhatsApp, Telegram, Messenger & Viber
+* Customizable launcher position, color, open/close icons and button size
+* Show or hide the button on mobile devices
 
 = PRO Features =
 
@@ -149,6 +160,18 @@ Yes! The Social Sharing Buttons Block offers multiple style presets (Circle, Squ
 
 The plugin supports 12+ sharing platforms: Facebook, X (Twitter), Threads, LinkedIn, Pinterest, Reddit, Telegram, WhatsApp, Bluesky, Email, Copy Link, and Print.
 
+= How do I add a Click to Chat button for WhatsApp? =
+
+Go to **Social Icons → Click to Chat** in your WordPress admin, enable the feature, and add your WhatsApp number. A floating Click to Chat button appears on your site so visitors can message you on WhatsApp with one tap. You can enable Telegram, Facebook Messenger, and Viber from the same screen.
+
+= Which chat apps does the Click to Chat button support? =
+
+The floating Click to Chat button supports WhatsApp, Telegram, Facebook Messenger, and Viber. You can enable any combination, reorder the platforms, and customize the launcher color, position, open/close icons, and size. You can also choose whether the floating contact button shows on mobile devices.
+
+= Is the Click to Chat / WhatsApp button free? =
+
+Yes. The Click to Chat floating contact button is included free in Social Icons & Sharing Buttons by WPZOOM, with support for WhatsApp, Telegram, Messenger, and Viber chat buttons.
+
 = How does the Print button work? =
 
 The Print button triggers the browser's native print dialog, allowing visitors to print the current page. It's disabled by default and can be enabled in the block settings.
@@ -200,6 +223,10 @@ Floating Buttons is a PRO feature that displays your social sharing icons as a f
 10. Social Sharing Buttons - No Label Style
 
 == Changelog ==
+
+= 4.6.0 =
+* **NEW: Click to Chat Floating Buttons** - Add a floating contact launcher that connects visitors to WhatsApp, Telegram, Messenger and Viber
+* Customizable launcher position, color, icons and button size, with mobile display control
 
 = 4.5.11 =
 * Added compatibility for WordPress 7.0
