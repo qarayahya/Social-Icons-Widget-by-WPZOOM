@@ -45,6 +45,7 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-zoom-social-i
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-social-icons-shortcode.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-share-analytics-upsell.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-floating-buttons-upsell.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-click-to-chat.php';
 
 // WPZOOM Notice Center (submodule at includes/notice-center).
 $wpz_notice_center_path = WPZOOM_SOCIAL_ICONS_PLUGIN_PATH . 'includes/notice-center/';
