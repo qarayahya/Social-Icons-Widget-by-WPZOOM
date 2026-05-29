@@ -30,7 +30,9 @@ class WPZOOM_Click_To_Chat {
 		'telegram_username'   => '',
 		'messenger_enabled'   => false,
 		'messenger_page'      => '',
-		'platform_order'      => array( 'whatsapp', 'telegram', 'messenger' ),
+		'viber_enabled'       => false,
+		'viber_phone'         => '',
+		'platform_order'      => array( 'whatsapp', 'telegram', 'messenger', 'viber' ),
 		'open_icon'           => 'comment',
 		'open_icon_kit'       => 'fa',
 		'close_icon'          => 'times',
@@ -87,8 +89,18 @@ class WPZOOM_Click_To_Chat {
 	}
 
 	public static function get_settings() {
-		$saved = get_option( self::OPTION_KEY, array() );
-		return wp_parse_args( $saved, self::$defaults );
+		$saved    = get_option( self::OPTION_KEY, array() );
+		$settings = wp_parse_args( $saved, self::$defaults );
+
+		// Ensure any newly added platform appears in the order.
+		$all_known = array( 'whatsapp', 'telegram', 'messenger', 'viber' );
+		foreach ( $all_known as $key ) {
+			if ( ! in_array( $key, $settings['platform_order'], true ) ) {
+				$settings['platform_order'][] = $key;
+			}
+		}
+
+		return $settings;
 	}
 
 	// -------------------------------------------------------------------------
@@ -142,7 +154,7 @@ class WPZOOM_Click_To_Chat {
 	}
 
 	private function sanitize_platform_order( $raw ) {
-		$allowed = array( 'whatsapp', 'telegram', 'messenger' );
+		$allowed = array( 'whatsapp', 'telegram', 'messenger', 'viber' );
 		$order   = array_filter( array_map( 'sanitize_key', explode( ',', $raw ) ), function( $v ) use ( $allowed ) {
 			return in_array( $v, $allowed, true );
 		} );
@@ -198,6 +210,8 @@ class WPZOOM_Click_To_Chat {
 				'telegram_username' => sanitize_text_field( isset( $_POST['ctc_telegram_username'] ) ? wp_unslash( $_POST['ctc_telegram_username'] ) : '' ),
 				'messenger_enabled' => ! empty( $_POST['ctc_messenger_enabled'] ),
 				'messenger_page'    => sanitize_text_field( isset( $_POST['ctc_messenger_page'] ) ? wp_unslash( $_POST['ctc_messenger_page'] ) : '' ),
+				'viber_enabled'     => ! empty( $_POST['ctc_viber_enabled'] ),
+				'viber_phone'       => preg_replace( '/[^\d+]/', '', isset( $_POST['ctc_viber_phone'] ) ? wp_unslash( $_POST['ctc_viber_phone'] ) : '' ),
 				'open_icon'         => sanitize_key( isset( $_POST['ctc_open_icon'] ) ? wp_unslash( $_POST['ctc_open_icon'] ) : 'comment' ),
 				'open_icon_kit'     => $open_icon_kit,
 				'close_icon'        => sanitize_key( isset( $_POST['ctc_close_icon'] ) ? wp_unslash( $_POST['ctc_close_icon'] ) : 'times' ),
@@ -298,6 +312,20 @@ class WPZOOM_Click_To_Chat {
 								'enabled_key' => 'messenger_enabled',
 								'toggle_name' => 'ctc_messenger_enabled',
 							),
+							'viber' => array(
+								'name'         => 'Viber',
+								'header_class' => 'wpzoom-ctc-platform-header--viber',
+								'icon'         => '<svg viewBox="0 0 512 512" width="22" height="22"><path fill-rule="evenodd" fill="#fff" d="M95 232c0-91 17-147 161-147s161 56 161 147-17 147-161 147l-26-1-53 63c-4 4-8 1-8-3v-69c-6 0-31-12-38-19-22-23-36-40-36-118zm-30 0c0-126 55-177 191-177s191 51 191 177-55 177-191 177c-10 0-18 0-32-2l-38 43c-7 8-28 11-28-13v-42c-6 0-20-6-39-18-19-13-54-44-54-145zm223 42q10-13 24-4l36 27q8 10-7 28t-28 15q-53-12-102-60t-61-104q0-20 25-34 13-9 22 5l25 35q6 12-7 22c-39 15 51 112 73 70z"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="10" d="M269 186a30 30 0 0 1 31 31m-38-58a64 64 0 0 1 64 67m-73-93a97 97 0 0 1 99 104"/></svg>',
+								'fields'       => function() use ( $s ) { ?>
+									<div class="wpzoom-ctc-field">
+										<label for="ctc_viber_phone"><?php esc_html_e( 'Phone Number', 'social-icons-widget-by-wpzoom' ); ?></label>
+										<input type="tel" id="ctc_viber_phone" name="ctc_viber_phone" value="<?php echo esc_attr( $s['viber_phone'] ); ?>" placeholder="+1234567890" class="regular-text">
+										<p class="description"><?php esc_html_e( 'Include country code, e.g. +15551234567', 'social-icons-widget-by-wpzoom' ); ?></p>
+									</div>
+								<?php },
+								'enabled_key' => 'viber_enabled',
+								'toggle_name' => 'ctc_viber_enabled',
+							),
 						);
 
 						$ordered_keys = ! empty( $s['platform_order'] ) ? $s['platform_order'] : array_keys( $platform_defs );
@@ -357,6 +385,7 @@ class WPZOOM_Click_To_Chat {
 									'whatsapp'  => array( 'key' => 'whatsapp',  'color' => '#25d366', 'icon' => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>' ),
 									'telegram'  => array( 'key' => 'telegram',  'color' => '#229ED9', 'icon' => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>' ),
 									'messenger' => array( 'key' => 'messenger', 'color' => '#0084ff', 'icon' => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8.4l3.131 3.259L19.752 8.4l-6.561 6.563z"/></svg>' ),
+								'viber'     => array( 'key' => 'viber',     'color' => '#7360f2', 'icon' => '<svg viewBox="0 0 512 512"><path fill-rule="evenodd" fill="#fff" d="M95 232c0-91 17-147 161-147s161 56 161 147-17 147-161 147l-26-1-53 63c-4 4-8 1-8-3v-69c-6 0-31-12-38-19-22-23-36-40-36-118zm-30 0c0-126 55-177 191-177s191 51 191 177-55 177-191 177c-10 0-18 0-32-2l-38 43c-7 8-28 11-28-13v-42c-6 0-20-6-39-18-19-13-54-44-54-145zm223 42q10-13 24-4l36 27q8 10-7 28t-28 15q-53-12-102-60t-61-104q0-20 25-34 13-9 22 5l25 35q6 12-7 22c-39 15 51 112 73 70z"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="10" d="M269 186a30 30 0 0 1 31 31m-38-58a64 64 0 0 1 64 67m-73-93a97 97 0 0 1 99 104"/></svg>' ),
 								);
 								$preview_order    = ! empty( $s['platform_order'] ) ? $s['platform_order'] : array_keys( $all_platforms_map );
 								$preview_platforms = array();
@@ -710,6 +739,7 @@ class WPZOOM_Click_To_Chat {
 		if ( ! empty( $s['whatsapp_enabled'] ) && ! empty( $s['whatsapp_phone'] ) )    { $count++; }
 		if ( ! empty( $s['telegram_enabled'] ) && ! empty( $s['telegram_username'] ) ) { $count++; }
 		if ( ! empty( $s['messenger_enabled'] ) && ! empty( $s['messenger_page'] ) )   { $count++; }
+		if ( ! empty( $s['viber_enabled'] ) && ! empty( $s['viber_phone'] ) )         { $count++; }
 		return $count;
 	}
 
@@ -737,6 +767,12 @@ class WPZOOM_Click_To_Chat {
 				'url'      => 'https://m.me/' . rawurlencode( $s['messenger_page'] ),
 				'label'    => __( 'Message us on Facebook', 'social-icons-widget-by-wpzoom' ),
 				'icon'     => '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8.4l3.131 3.259L19.752 8.4l-6.561 6.563z"/></svg>',
+			) : null,
+			'viber' => ( ! empty( $s['viber_enabled'] ) && ! empty( $s['viber_phone'] ) ) ? array(
+				'platform' => 'viber',
+				'url'      => 'viber://chat?number=' . rawurlencode( $s['viber_phone'] ),
+				'label'    => __( 'Chat on Viber', 'social-icons-widget-by-wpzoom' ),
+				'icon'     => '<svg viewBox="0 0 512 512" aria-hidden="true"><path fill-rule="evenodd" fill="#fff" d="M95 232c0-91 17-147 161-147s161 56 161 147-17 147-161 147l-26-1-53 63c-4 4-8 1-8-3v-69c-6 0-31-12-38-19-22-23-36-40-36-118zm-30 0c0-126 55-177 191-177s191 51 191 177-55 177-191 177c-10 0-18 0-32-2l-38 43c-7 8-28 11-28-13v-42c-6 0-20-6-39-18-19-13-54-44-54-145zm223 42q10-13 24-4l36 27q8 10-7 28t-28 15q-53-12-102-60t-61-104q0-20 25-34 13-9 22 5l25 35q6 12-7 22c-39 15 51 112 73 70z"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="10" d="M269 186a30 30 0 0 1 31 31m-38-58a64 64 0 0 1 64 67m-73-93a97 97 0 0 1 99 104"/></svg>',
 			) : null,
 		);
 

@@ -163,6 +163,7 @@
 .wpzoom-ctc-platform-header--whatsapp  { background: #25d366; }
 .wpzoom-ctc-platform-header--telegram  { background: #229ED9; }
 .wpzoom-ctc-platform-header--messenger { background: #0084ff; }
+.wpzoom-ctc-platform-header--viber     { background: #7360f2; }
 
 .wpzoom-ctc-platform-icon {
 	display: flex;
@@ -187,6 +188,7 @@
 .wpzoom-ctc-platform-header--whatsapp input:checked + .wpzoom-ctc-slider::before  { background: #25d366; }
 .wpzoom-ctc-platform-header--telegram  input:checked + .wpzoom-ctc-slider::before  { background: #229ED9; }
 .wpzoom-ctc-platform-header--messenger input:checked + .wpzoom-ctc-slider::before  { background: #0084ff; }
+.wpzoom-ctc-platform-header--viber     input:checked + .wpzoom-ctc-slider::before  { background: #7360f2; }
 
 .wpzoom-ctc-platform-fields {
 	padding: 16px 18px;
@@ -254,7 +256,7 @@
 
 .wpzoom-ctc-style-preview {
 	position: relative;
-	height: 160px;
+	height: 210px;
 	background: #edf0f3;
 	border-radius: 8px;
 	margin-top: 10px;
