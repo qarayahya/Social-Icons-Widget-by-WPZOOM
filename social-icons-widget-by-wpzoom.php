@@ -59,6 +59,7 @@ if ( is_admin() && ! class_exists( 'WPZOOM_Notice_Center' ) && file_exists( $wpz
 }
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-sharing-buttons-notice.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-click-to-chat-notice.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/classes/class-wpzoom-social-icons-upsell.php';
 
 $current_theme = get_template();
