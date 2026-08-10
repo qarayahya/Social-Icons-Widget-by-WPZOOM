@@ -379,7 +379,7 @@ class Zoom_Social_Icons_Widget extends WP_Widget {
 
 			<div class="zoom-social-modal-toolbar">
 				<slot name="footer">
-					<input class="search-action-input" style="width: 50%; float: left;" type="text" v-model='searchIcons' placeholder="Type to search icon" />
+					<input class="search-action-input" style="width: 50%; float: left;" type="text" v-model='searchIcons' placeholder="<?php esc_attr_e( 'Type to search icon', 'social-icons-widget-by-wpzoom' ); ?>" />
 					<a href='#' class="button-primary zoom-social-modal-save-btn" @click.prevent="saveModal"><?php esc_html_e( 'Save', 'social-icons-widget-by-wpzoom' ); ?></a>
 				</slot>
 			</div>
@@ -723,26 +723,24 @@ class Zoom_Social_Icons_Widget extends WP_Widget {
 		<input class="checkbox" type="checkbox" v-model="open_new_tab" :true-value="'true'" :false-value="'false'" :value="open_new_tab" id="<?php echo $this->get_field_id( 'open_new_tab' ); ?>" name="<?php echo $this->get_field_name( 'open_new_tab' ); ?>" />
 		<label for="<?php echo $this->get_field_id( 'open_new_tab' ); ?>"><?php esc_html_e( 'Open links in new tab? ', 'social-icons-widget-by-wpzoom' ); ?></label>
 	</p>
-	<?php // phpcs:disable WordPress.WP.I18n.MissingTranslatorsComment ?>
 	<p>
 		<input class="checkbox" type="checkbox" v-model="no_follow" :true-value="'true'" :false-value="'false'" :value="no_follow" id="<?php echo $this->get_field_id( 'no_follow' ); ?>" name="<?php echo $this->get_field_name( 'no_follow' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'no_follow' ); ?>"><?php echo sprintf( __( 'Add %s to links', 'social-icons-widget-by-wpzoom' ), '<code>rel="nofollow"</code>' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'no_follow' ); ?>"><?php /* translators: %s: the rel attribute that gets added, wrapped in a <code> tag. */ echo sprintf( __( 'Add %s to links', 'social-icons-widget-by-wpzoom' ), '<code>rel="nofollow"</code>' ); ?></label>
 	</p>
 
 	<p>
 		<input class="checkbox" type="checkbox" v-model="no_referrer" :true-value="'true'" :false-value="'false'" :value="no_referrer" id="<?php echo $this->get_field_id( 'no_referrer' ); ?>" name="<?php echo $this->get_field_name( 'no_referrer' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'no_referrer' ); ?>"><?php echo sprintf( __( 'Add %s to links', 'social-icons-widget-by-wpzoom' ), '<code>rel="noreferrer"</code>' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'no_referrer' ); ?>"><?php /* translators: %s: the rel attribute that gets added, wrapped in a <code> tag. */ echo sprintf( __( 'Add %s to links', 'social-icons-widget-by-wpzoom' ), '<code>rel="noreferrer"</code>' ); ?></label>
 	</p>
 
 	<p>
 		<input class="checkbox" type="checkbox" v-model="no_opener" :true-value="'true'" :false-value="'false'" :value="no_opener" id="<?php echo $this->get_field_id( 'no_opener' ); ?>" name="<?php echo $this->get_field_name( 'no_opener' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'no_opener' ); ?>"><?php echo sprintf( __( 'Add %s to links', 'social-icons-widget-by-wpzoom' ), '<code>rel="noopener"</code>' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'no_opener' ); ?>"><?php /* translators: %s: the rel attribute that gets added, wrapped in a <code> tag. */ echo sprintf( __( 'Add %s to links', 'social-icons-widget-by-wpzoom' ), '<code>rel="noopener"</code>' ); ?></label>
 	</p>
 	<p>
 		<input class="checkbox" type="checkbox" v-model="rel_me" :true-value="'true'" :false-value="'false'" :value="rel_me" id="<?php echo $this->get_field_id( 'rel_me' ); ?>" name="<?php echo $this->get_field_name( 'rel_me' ); ?>" />
-		<label for="<?php echo $this->get_field_id( 'rel_me' ); ?>"><?php echo sprintf( __( 'Add %s to links', 'social-icons-widget-by-wpzoom' ), '<code>rel="me"</code>' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'rel_me' ); ?>"><?php /* translators: %s: the rel attribute that gets added, wrapped in a <code> tag. */ echo sprintf( __( 'Add %s to links', 'social-icons-widget-by-wpzoom' ), '<code>rel="me"</code>' ); ?></label>
 	</p>
-	<?php // phpcs:enable WordPress.WP.I18n.MissingTranslatorsComment ?>
 
 	<p class="description"><?php esc_html_e( 'Recommended if links or icons open in a new tab', 'social-icons-widget-by-wpzoom' ); ?></p>
 
@@ -892,9 +890,9 @@ class Zoom_Social_Icons_Widget extends WP_Widget {
 					</div>
 				</div>
 
-				<a title="Edit" v-show='fields.length > 1' @click.prevent="openModal(key)" class="zoom-social-icons__field-edit" href="#"><span class="dashicons dashicons-admin-appearance"></span></a>
-				<a title="Remove" v-show='fields.length > 1' class="zoom-social-icons__field-trash" href="#" @click.prevent="clickOnDeleteIconHandler(key)"><span class="dashicons dashicons-trash"></span></a>
-				<span title="Expand" :class="toggleExtraOptionsClass(key)" @click.prevent='toggleExtraOptions(key, field)'></span>
+				<a title="<?php esc_attr_e( 'Edit', 'social-icons-widget-by-wpzoom' ); ?>" v-show='fields.length > 1' @click.prevent="openModal(key)" class="zoom-social-icons__field-edit" href="#"><span class="dashicons dashicons-admin-appearance"></span></a>
+				<a title="<?php esc_attr_e( 'Remove', 'social-icons-widget-by-wpzoom' ); ?>" v-show='fields.length > 1' class="zoom-social-icons__field-trash" href="#" @click.prevent="clickOnDeleteIconHandler(key)"><span class="dashicons dashicons-trash"></span></a>
+				<span title="<?php esc_attr_e( 'Expand', 'social-icons-widget-by-wpzoom' ); ?>" :class="toggleExtraOptionsClass(key)" @click.prevent='toggleExtraOptions(key, field)'></span>
 				<br style="clear:both">
 				<div class="extra-options" v-show="field.show_extra_options == true">
 					<p>

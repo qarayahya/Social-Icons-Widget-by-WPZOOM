@@ -67,7 +67,31 @@ class WPZOOM_Elementor_Social_Icons {
 		add_action( 'elementor/widgets/register', array( $this, 'init_widgets' ) );
 
 		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'plugin_css' ) );
-	
+		add_action( 'elementor/editor/after_enqueue_scripts', array( $this, 'editor_js' ) );
+
+	}
+
+	/**
+	 * Enqueue editor scripts.
+	 *
+	 * Select2 is loaded by Elementor without a `language` option, so its own
+	 * messages ("No results found", "Searching…", etc.) always render in
+	 * English. Elementor exposes no way to pass them from PHP, because Select2
+	 * expects each message to be a callable, so they are declared in JS.
+	 *
+	 * @since 4.6.1
+	 * @access public
+	 */
+	public function editor_js() {
+		wp_enqueue_script(
+			'wpzoom-social-icons-select2-i18n',
+			WPZOOM_SOCIAL_ICONS_PLUGIN_URL . 'elementor/assets/js/wpzoom-social-icons-select2-i18n.js',
+			array( 'jquery', 'jquery-elementor-select2', 'wp-i18n' ),
+			WPZOOM_SOCIAL_ICONS_PLUGIN_VERSION,
+			true
+		);
+
+		wp_set_script_translations( 'wpzoom-social-icons-select2-i18n', 'social-icons-widget-by-wpzoom' );
 	}
 
 	/**
@@ -110,7 +134,7 @@ class WPZOOM_Elementor_Social_Icons {
 		$elements_manager->add_category(
 			'wpzoom-elementor-social-icons',
 			array(
-				'title' => esc_html__( 'Social Icons by WPZOOM', 'wpzoom-forms' ),
+				'title' => esc_html__( 'Social Icons by WPZOOM', 'social-icons-widget-by-wpzoom' ),
 				'icon'  => 'eicon-social-icons',
 			)
 		);

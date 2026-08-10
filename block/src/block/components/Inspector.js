@@ -278,21 +278,21 @@ export default class Inspector extends Component {
 								isPrimary={ isLeftAlignment }
 								isSecondary={ ! isLeftAlignment }
 							>
-								Left
+								{ __( 'Left', 'social-icons-widget-by-wpzoom' ) }
 							</Button>
 							<Button
 								onClick={ () => this.setAlignment( 'center' ) }
 								isPrimary={ isCenterAlignment }
 								isSecondary={ ! isCenterAlignment }
 							>
-								Center
+								{ __( 'Center', 'social-icons-widget-by-wpzoom' ) }
 							</Button>
 							<Button
 								onClick={ () => this.setAlignment( 'right' ) }
 								isPrimary={ isRightAlignment }
 								isSecondary={ ! isRightAlignment }
 							>
-								Right
+								{ __( 'Right', 'social-icons-widget-by-wpzoom' ) }
 							</Button>
 						</ButtonGroup>
 					</PanelRow>

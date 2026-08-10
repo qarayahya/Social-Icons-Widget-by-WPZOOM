@@ -406,10 +406,12 @@ class WPZOOM_Social_Sharing_Buttons {
 			wp_enqueue_script(
 				'wpzoom-social-sharing-editor',
 				WPZOOM_SOCIAL_ICONS_PLUGIN_URL . 'assets/js/social-sharing-editor.js',
-				array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post' ),
+				array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post', 'wp-i18n' ),
 				WPZOOM_SOCIAL_ICONS_PLUGIN_VERSION,
 				true
 			);
+
+			wp_set_script_translations( 'wpzoom-social-sharing-editor', 'social-icons-widget-by-wpzoom' );
 		}
 	}
 

@@ -2,8 +2,10 @@
  * WordPress dependencies
  */
 (function() {
+    const { __ } = wp.i18n;
+
     wp.domReady( function() {
-        
+
         // Add a class to the body for custom styling
         document.body.classList.add('wpzoom-social-sharing-editor');
         
@@ -81,8 +83,8 @@
                 instructionsPanel.style.boxShadow = '0 1px 1px rgba(0, 0, 0, 0.04)';
 
                 instructionsPanel.innerHTML = `
-                    <h2 style="margin-top: 0; font-size: 18px; font-weight: 500; margin-bottom: 12px; color: #23282d;">Configure Your Social Sharing Buttons</h2>
-                    <p style="margin-bottom: 0; color: #646970;">These buttons will automatically appear on your content based on the settings in the sidebar. Customize the buttons below, then use the "Display Settings" panel to control where they appear.</p>
+                    <h2 style="margin-top: 0; font-size: 18px; font-weight: 500; margin-bottom: 12px; color: #23282d;">${ __( 'Configure Your Social Sharing Buttons', 'social-icons-widget-by-wpzoom' ) }</h2>
+                    <p style="margin-bottom: 0; color: #646970;">${ __( 'These buttons will automatically appear on your content based on the settings in the sidebar. Customize the buttons below, then use the "Display Settings" panel to control where they appear.', 'social-icons-widget-by-wpzoom' ) }</p>
                 `;
 
                 // Try to find the best place to insert the panel
