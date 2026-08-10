@@ -36,6 +36,7 @@ import {
 } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { dragHandle } from '@wordpress/icons';
+import { getPlatformLabel } from '../utils/labels';
 
 /**
  * Create an Inspector Controls wrapper Component
@@ -490,7 +491,7 @@ export default function Inspector({ attributes, setAttributes }) {
 
 									<FlexBlock>
 										<CheckboxControl
-											label={platform.name}
+											label={getPlatformLabel(platform.id, platform.name)}
 											checked={platform.enabled}
 											onChange={(checked) => onTogglePlatform(platform.id, checked)}
 										/>

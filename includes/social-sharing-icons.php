@@ -165,6 +165,91 @@ function wpzoom_social_sharing_get_platform_color( $platform_id ) {
 }
 
 /**
+ * Get the untranslated default labels shipped for each sharing platform.
+ *
+ * These are the exact English strings the block writes into the `platforms`
+ * attribute (see block/src/social-sharing-block/block.js and the default block
+ * content in WPZOOM_Social_Sharing_Buttons). They are kept in English in
+ * post_content so the serialized markup stays canonical and keeps validating
+ * against Save.js in every locale; translation happens at render time only.
+ *
+ * A platform may have more than one historical default (the "x" platform ships
+ * as "Share on X" in the default configuration and as "X" in the block
+ * defaults), so each entry is a list.
+ *
+ * @return array Map of platform ID to the list of known default labels.
+ */
+function wpzoom_social_sharing_get_default_platform_labels() {
+    return array(
+        'facebook'  => array( 'Facebook' ),
+        'x'         => array( 'Share on X', 'X' ),
+        'threads'   => array( 'Threads' ),
+        'linkedin'  => array( 'LinkedIn' ),
+        'pinterest' => array( 'Pinterest' ),
+        'reddit'    => array( 'Reddit' ),
+        'pocket'    => array( 'Pocket' ),
+        'telegram'  => array( 'Telegram' ),
+        'whatsapp'  => array( 'WhatsApp' ),
+        'bluesky'   => array( 'Bluesky' ),
+        'email'     => array( 'Email' ),
+        'copy-link' => array( 'Copy Link' ),
+        'print'     => array( 'Print' ),
+    );
+}
+
+/**
+ * Translate one of the default sharing labels.
+ *
+ * Brand names (Facebook, LinkedIn, WhatsApp, …) are returned untouched, since
+ * they are not translated in practice. Only the labels that are real phrases
+ * or common nouns go through gettext.
+ *
+ * @param string $label A default label as returned by wpzoom_social_sharing_get_default_platform_labels().
+ * @return string The translated label, or the label itself if it is a brand name.
+ */
+function wpzoom_social_sharing_translate_default_label( $label ) {
+    switch ( $label ) {
+        case 'Share on X':
+            return __( 'Share on X', 'social-icons-widget-by-wpzoom' );
+        case 'Email':
+            return __( 'Email', 'social-icons-widget-by-wpzoom' );
+        case 'Copy Link':
+            return __( 'Copy Link', 'social-icons-widget-by-wpzoom' );
+        case 'Print':
+            return __( 'Print', 'social-icons-widget-by-wpzoom' );
+        default:
+            return $label;
+    }
+}
+
+/**
+ * Get the label to display for a sharing platform.
+ *
+ * Labels are editable per block, so a stored name is only translated when it
+ * still matches one of the untranslated defaults for that platform. Anything
+ * the user typed themselves is returned verbatim.
+ *
+ * @param string $platform_id The platform ID.
+ * @param string $stored_name The label stored in the block attributes.
+ * @return string The label to display.
+ */
+function wpzoom_social_sharing_get_platform_label( $platform_id, $stored_name = '' ) {
+    $defaults = wpzoom_social_sharing_get_default_platform_labels();
+    $known    = isset( $defaults[ $platform_id ] ) ? $defaults[ $platform_id ] : array();
+
+    if ( ! is_string( $stored_name ) || '' === $stored_name ) {
+        return isset( $known[0] ) ? wpzoom_social_sharing_translate_default_label( $known[0] ) : '';
+    }
+
+    if ( in_array( $stored_name, $known, true ) ) {
+        return wpzoom_social_sharing_translate_default_label( $stored_name );
+    }
+
+    // Custom label set by the user — leave it alone.
+    return $stored_name;
+}
+
+/**
  * Return a success/check mark SVG icon
  *
  * @param int    $size    The icon size in pixels.

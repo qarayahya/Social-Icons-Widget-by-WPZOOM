@@ -22,6 +22,7 @@ import {
  */
 import Inspector from './Inspector';
 import SocialIcons from './SocialIcons';
+import { getPlatformLabel } from '../utils/labels';
 
 /**
  * Block edit function
@@ -167,18 +168,22 @@ export default function Edit({ attributes, setAttributes, className, isSelected 
 								buttonStyle.padding = '5px';
 							}
 
+							// Stored names stay in English so the saved markup keeps
+							// validating against Save.js — translate for display only.
+							const platformLabel = getPlatformLabel(platform.id, platform.name);
+
 							return (
 								<li key={platform.id} className="social-sharing-icon-li">
-									<a 
+									<a
 										className={`social-sharing-icon social-sharing-icon-${platform.id}`}
 										style={buttonStyle}
 										href="#"
-										title={platform.name}
+										title={platformLabel}
 										onClick={(e) => {
 											e.preventDefault();
 											if (isSelected) {
 												setEditingPlatform(platform.id);
-												setEditingLabel(platform.name);
+												setEditingLabel(platformLabel);
 											}
 										}}
 									>
@@ -196,7 +201,7 @@ export default function Edit({ attributes, setAttributes, className, isSelected 
 													color: labelColorValue
 												}}
 											>
-												{platform.name}
+												{platformLabel}
 											</span>
 										)}
 									</a>

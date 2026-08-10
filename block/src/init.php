@@ -235,54 +235,56 @@ function wpzoom_social_sharing_block_render_callback( $attributes ) {
 		return isset( $platform['enabled'] ) && $platform['enabled'];
 	});
 
-	// If no platforms are enabled, use default platforms
+	// If no platforms are enabled, use default platforms.
+	// Names are kept untranslated here — wpzoom_social_sharing_get_platform_label()
+	// translates them below, the same way it does for stored platform names.
 	if ( empty( $enabled_platforms ) ) {
 		$enabled_platforms = array(
 			array(
 				'id' => 'facebook',
-				'name' => __( 'Facebook', 'social-icons-widget-by-wpzoom' ),
+				'name' => 'Facebook',
 				'enabled' => true,
 				'color' => '#0866FF'
 			),
 			array(
 				'id' => 'x',
-				'name' => __( 'X', 'social-icons-widget-by-wpzoom' ),
+				'name' => 'X',
 				'enabled' => true,
 				'color' => '#000000'
 			),
             array(
                 'id' => 'threads',
-                'name' => __( 'Threads', 'social-icons-widget-by-wpzoom' ),
+                'name' => 'Threads',
                 'enabled' => true,
                 'color' => '#000000'
             ),
 			array(
 				'id' => 'linkedin',
-				'name' => __( 'LinkedIn', 'social-icons-widget-by-wpzoom' ),
+				'name' => 'LinkedIn',
 				'enabled' => true,
 				'color' => '#0966C2'
 			),
 			array(
 				'id' => 'reddit',
-				'name' => __( 'Reddit', 'social-icons-widget-by-wpzoom' ),
+				'name' => 'Reddit',
 				'enabled' => true,
 				'color' => '#FF4500'
 			),
 			array(
 				'id' => 'whatsapp',
-				'name' => __( 'WhatsApp', 'social-icons-widget-by-wpzoom' ),
+				'name' => 'WhatsApp',
 				'enabled' => true,
 				'color' => '#25D366'
 			),
 			array(
 				'id' => 'email',
-				'name' => __( 'Email', 'social-icons-widget-by-wpzoom' ),
+				'name' => 'Email',
 				'enabled' => true,
 				'color' => '#333333'
 			),
 			array(
 				'id' => 'copy-link',
-				'name' => __( 'Copy Link', 'social-icons-widget-by-wpzoom' ),
+				'name' => 'Copy Link',
 				'enabled' => true,
 				'color' => '#333333'
 			)
@@ -291,6 +293,13 @@ function wpzoom_social_sharing_block_render_callback( $attributes ) {
 
 	// Loop through platforms
 	foreach ( $enabled_platforms as $platform ) {
+		// Stored labels are English (the serialized markup has to stay canonical
+		// so it keeps validating against Save.js), so translate them here.
+		$platform_label = wpzoom_social_sharing_get_platform_label(
+			$platform['id'],
+			isset( $platform['name'] ) ? $platform['name'] : ''
+		);
+
 		// Generate share URL
 		$share_url = wpzoom_social_sharing_get_share_url(
 			$platform['id'],
@@ -355,7 +364,7 @@ function wpzoom_social_sharing_block_render_callback( $attributes ) {
 		$output .= '<a class="social-sharing-icon social-sharing-icon-' . esc_attr( $platform['id'] ) . '" ';
 		$output .= 'style="' . esc_attr( $button_style ) . '" ';
 		$output .= 'href="' . esc_url( $share_url ) . '" ';
-		$output .= 'title="' . esc_attr( $platform['name'] ) . '" ';
+		$output .= 'title="' . esc_attr( $platform_label ) . '" ';
 		
 		// Don't use target="_blank" for copy-link and print
 		if ( $platform['id'] !== 'copy-link' && $platform['id'] !== 'print' ) {
@@ -369,7 +378,7 @@ function wpzoom_social_sharing_block_render_callback( $attributes ) {
 		
 		if ( $showLabels ) {
 			$label_style = sprintf( 'font-size:%dpx;color:%s;', $labelSize, $label_color_value );
-			$output .= '<span class="social-sharing-icon-label" style="' . esc_attr( $label_style ) . '">' . esc_html( $platform['name'] ) . '</span>';
+			$output .= '<span class="social-sharing-icon-label" style="' . esc_attr( $label_style ) . '">' . esc_html( $platform_label ) . '</span>';
 		}
 		
 		$output .= '</a>';

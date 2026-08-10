@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-10T10:50:13+00:00\n"
+"POT-Creation-Date: 2026-08-10T11:02:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: social-icons-widget-by-wpzoom\n"
@@ -39,44 +39,12 @@ msgstr ""
 msgid "https://www.wpzoom.com/"
 msgstr ""
 
-#: block/src/init.php:243
-msgid "Facebook"
-msgstr ""
-
-#: block/src/init.php:249
-msgid "X"
-msgstr ""
-
-#: block/src/init.php:255
-msgid "Threads"
-msgstr ""
-
-#: block/src/init.php:261
-msgid "LinkedIn"
-msgstr ""
-
-#: block/src/init.php:267
-msgid "Reddit"
-msgstr ""
-
-#: block/src/init.php:273
-msgid "WhatsApp"
-msgstr ""
-
-#: block/src/init.php:279
-msgid "Email"
-msgstr ""
-
-#: block/src/init.php:285
-msgid "Copy Link"
-msgstr ""
-
-#: block/src/init.php:420
-#: block/src/init.php:424
+#: block/src/init.php:429
+#: block/src/init.php:433
 msgid "Copied!"
 msgstr ""
 
-#: block/src/init.php:486
+#: block/src/init.php:495
 msgid "WPZOOM - Blocks"
 msgstr ""
 
@@ -134,7 +102,7 @@ msgstr ""
 
 #: includes/classes/class-wpzoom-click-to-chat.php:260
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:477
+#: block/src/social-sharing-block/components/Inspector.js:478
 msgid "Drag to reorder"
 msgstr ""
 
@@ -170,9 +138,9 @@ msgstr ""
 
 #: includes/classes/class-wpzoom-click-to-chat.php:364
 #: includes/classes/class-wpzoom-floating-buttons-upsell.php:138
-#: includes/classes/class-wpzoom-social-sharing-buttons.php:227
+#: includes/classes/class-wpzoom-social-sharing-buttons.php:233
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:745
+#: block/src/social-sharing-block/components/Inspector.js:746
 msgid "Display Settings"
 msgstr ""
 
@@ -190,7 +158,7 @@ msgstr ""
 
 #: includes/classes/class-wpzoom-click-to-chat.php:437
 #: includes/classes/class-wpzoom-floating-buttons-upsell.php:142
-#: includes/classes/class-wpzoom-social-sharing-buttons.php:266
+#: includes/classes/class-wpzoom-social-sharing-buttons.php:272
 msgid "Position"
 msgstr ""
 
@@ -199,7 +167,7 @@ msgstr ""
 #: block/dist/wpzoom-social-icons.js:1
 #: block/dist/wpzoom-social-icons.js:3
 #: block/src/block/components/Inspector.js:281
-#: block/src/social-sharing-block/components/Inspector.js:794
+#: block/src/social-sharing-block/components/Inspector.js:795
 msgid "Left"
 msgstr ""
 
@@ -208,7 +176,7 @@ msgstr ""
 #: block/dist/wpzoom-social-icons.js:1
 #: block/dist/wpzoom-social-icons.js:3
 #: block/src/block/components/Inspector.js:295
-#: block/src/social-sharing-block/components/Inspector.js:802
+#: block/src/social-sharing-block/components/Inspector.js:803
 msgid "Right"
 msgstr ""
 
@@ -326,7 +294,7 @@ msgid "Pages"
 msgstr ""
 
 #: includes/classes/class-wpzoom-floating-buttons-upsell.php:175
-#: includes/classes/class-wpzoom-social-sharing-buttons.php:294
+#: includes/classes/class-wpzoom-social-sharing-buttons.php:300
 msgid "Front Page"
 msgstr ""
 
@@ -385,7 +353,7 @@ msgstr ""
 #: includes/classes/class-wpzoom-sharing-buttons-notice.php:101
 #: includes/classes/class-wpzoom-social-icons-settings.php:656
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:437
+#: block/src/social-sharing-block/components/Inspector.js:438
 msgid "Upgrade to Pro"
 msgstr ""
 
@@ -762,7 +730,7 @@ msgstr ""
 #: includes/classes/class-wpzoom-social-icons-upsell.php:160
 #: includes/classes/class-wpzoom-social-icons-upsell.php:309
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:562
+#: block/src/social-sharing-block/components/Inspector.js:563
 msgid "Like Button"
 msgstr ""
 
@@ -777,7 +745,7 @@ msgstr ""
 #: includes/classes/class-wpzoom-social-icons-upsell.php:172
 #: includes/classes/class-wpzoom-social-icons-upsell.php:177
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:371
+#: block/src/social-sharing-block/components/Inspector.js:372
 msgid "AI Share Buttons"
 msgstr ""
 
@@ -903,8 +871,8 @@ msgstr ""
 #: includes/classes/class-wpzoom-social-sharing-buttons.php:84
 #: includes/classes/class-wpzoom-social-sharing-buttons.php:125
 #: includes/classes/class-wpzoom-social-sharing-buttons.php:126
-#: includes/classes/class-wpzoom-social-sharing-buttons.php:152
-#: includes/classes/class-wpzoom-social-sharing-buttons.php:153
+#: includes/classes/class-wpzoom-social-sharing-buttons.php:158
+#: includes/classes/class-wpzoom-social-sharing-buttons.php:159
 msgid "Sharing Buttons"
 msgstr ""
 
@@ -938,27 +906,27 @@ msgstr ""
 msgid "View Sharing Configuration"
 msgstr ""
 
-#: includes/classes/class-wpzoom-social-sharing-buttons.php:141
+#: includes/classes/class-wpzoom-social-sharing-buttons.php:147
 msgid "Sharing Buttons Configuration"
 msgstr ""
 
-#: includes/classes/class-wpzoom-social-sharing-buttons.php:271
+#: includes/classes/class-wpzoom-social-sharing-buttons.php:277
 msgid "Above content"
 msgstr ""
 
-#: includes/classes/class-wpzoom-social-sharing-buttons.php:277
+#: includes/classes/class-wpzoom-social-sharing-buttons.php:283
 msgid "Below content"
 msgstr ""
 
-#: includes/classes/class-wpzoom-social-sharing-buttons.php:283
+#: includes/classes/class-wpzoom-social-sharing-buttons.php:289
 msgid "Above and below content"
 msgstr ""
 
-#: includes/classes/class-wpzoom-social-sharing-buttons.php:288
+#: includes/classes/class-wpzoom-social-sharing-buttons.php:294
 msgid "Show buttons on"
 msgstr ""
 
-#: includes/classes/class-wpzoom-social-sharing-buttons.php:310
+#: includes/classes/class-wpzoom-social-sharing-buttons.php:316
 msgid "Configure the social sharing buttons above, then use these settings to control where they appear on your site."
 msgstr ""
 
@@ -1016,7 +984,7 @@ msgstr ""
 #: block/dist/wpzoom-social-icons.js:1
 #: block/dist/wpzoom-social-icons.js:3
 #: block/src/block/components/SocialIconsModal.js:241
-#: block/src/social-sharing-block/components/Edit.js:230
+#: block/src/social-sharing-block/components/Edit.js:235
 msgid "Save"
 msgstr ""
 
@@ -1177,6 +1145,30 @@ msgstr ""
 
 #: includes/classes/class-zoom-social-icons-widget.php:942
 msgid "Follow us"
+msgstr ""
+
+#: includes/social-sharing-icons.php:213
+#: block/dist/wpzoom-social-icons.js:3
+#: block/src/social-sharing-block/utils/labels.js:45
+msgid "Share on X"
+msgstr ""
+
+#: includes/social-sharing-icons.php:215
+#: block/dist/wpzoom-social-icons.js:3
+#: block/src/social-sharing-block/utils/labels.js:47
+msgid "Email"
+msgstr ""
+
+#: includes/social-sharing-icons.php:217
+#: block/dist/wpzoom-social-icons.js:3
+#: block/src/social-sharing-block/utils/labels.js:49
+msgid "Copy Link"
+msgstr ""
+
+#: includes/social-sharing-icons.php:219
+#: block/dist/wpzoom-social-icons.js:3
+#: block/src/social-sharing-block/utils/labels.js:51
+msgid "Print"
 msgstr ""
 
 #: social-icons-widget-by-wpzoom.php:237
@@ -1349,7 +1341,7 @@ msgstr ""
 #: block/dist/wpzoom-social-icons.js:1
 #: block/dist/wpzoom-social-icons.js:3
 #: block/src/block/components/Inspector.js:288
-#: block/src/social-sharing-block/components/Inspector.js:798
+#: block/src/social-sharing-block/components/Inspector.js:799
 msgid "Center"
 msgstr ""
 
@@ -1572,7 +1564,7 @@ msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
 #: block/src/block/components/Edit.js:751
-#: block/src/social-sharing-block/components/Inspector.js:999
+#: block/src/social-sharing-block/components/Inspector.js:1000
 msgid "Icon Color"
 msgstr ""
 
@@ -1618,284 +1610,284 @@ msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
 #: block/src/block/components/Edit.js:1001
-#: block/src/social-sharing-block/components/Edit.js:224
+#: block/src/social-sharing-block/components/Edit.js:229
 msgid "Cancel"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:325
-#: block/src/social-sharing-block/components/Inspector.js:532
+#: block/src/social-sharing-block/components/Inspector.js:326
+#: block/src/social-sharing-block/components/Inspector.js:533
 msgid "Pro Features"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:343
+#: block/src/social-sharing-block/components/Inspector.js:344
 msgid "Show Like Button"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:349
+#: block/src/social-sharing-block/components/Inspector.js:350
 msgid "Show Share Counts"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:355
+#: block/src/social-sharing-block/components/Inspector.js:356
 msgid "Show Individual Counts"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:446
+#: block/src/social-sharing-block/components/Inspector.js:447
 msgid "Unlock analytics, like buttons, AI sharing & more"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:451
+#: block/src/social-sharing-block/components/Inspector.js:452
 msgid "Sharing Networks"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:453
+#: block/src/social-sharing-block/components/Inspector.js:454
 msgid "Select which platforms to display. Drag handles to reorder networks."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:501
+#: block/src/social-sharing-block/components/Inspector.js:502
 msgid "Move Up"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:509
+#: block/src/social-sharing-block/components/Inspector.js:510
 msgid "Move Down"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:604
+#: block/src/social-sharing-block/components/Inspector.js:605
 msgid "ChatGPT"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:646
+#: block/src/social-sharing-block/components/Inspector.js:647
 msgid "Claude"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:688
+#: block/src/social-sharing-block/components/Inspector.js:689
 msgid "Perplexity"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:709
+#: block/src/social-sharing-block/components/Inspector.js:710
 msgid "Unlock all features →"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:716
+#: block/src/social-sharing-block/components/Inspector.js:717
 msgid "Auto-Display Configuration"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:718
+#: block/src/social-sharing-block/components/Inspector.js:719
 msgid "Want sharing buttons to appear automatically in all posts/pages?"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:721
+#: block/src/social-sharing-block/components/Inspector.js:722
 msgid "Configure automatic sharing button display settings for your entire site."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:730
+#: block/src/social-sharing-block/components/Inspector.js:731
 msgid "Open Sharing Buttons Settings →"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:734
+#: block/src/social-sharing-block/components/Inspector.js:735
 msgid "Sharing configuration not found. Please save this block first."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:738
+#: block/src/social-sharing-block/components/Inspector.js:739
 msgid "Note: This will open the admin settings page where you can configure automatic display of sharing buttons across your site."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:747
+#: block/src/social-sharing-block/components/Inspector.js:748
 msgid "You are editing the global Sharing Buttons configuration."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:750
+#: block/src/social-sharing-block/components/Inspector.js:751
 msgid "To control where these buttons appear automatically on your site, click on the button below."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:780
+#: block/src/social-sharing-block/components/Inspector.js:781
 msgid "Jump to Display Settings"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:785
+#: block/src/social-sharing-block/components/Inspector.js:786
 msgid "Display Options"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:787
+#: block/src/social-sharing-block/components/Inspector.js:788
 msgid "Alignment"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:809
+#: block/src/social-sharing-block/components/Inspector.js:810
 msgid "Show Labels"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:818
+#: block/src/social-sharing-block/components/Inspector.js:819
 msgid "X/Twitter Username"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:819
+#: block/src/social-sharing-block/components/Inspector.js:820
 msgid "When sharing to X, this will be added as \"via @username\""
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:831
+#: block/src/social-sharing-block/components/Inspector.js:832
 msgid "Size & Spacing"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:833
+#: block/src/social-sharing-block/components/Inspector.js:834
 msgid "Icon Size"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:845
+#: block/src/social-sharing-block/components/Inspector.js:846
 msgid "Label Size"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:859
+#: block/src/social-sharing-block/components/Inspector.js:860
 msgid "Vertical Padding"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:870
+#: block/src/social-sharing-block/components/Inspector.js:871
 msgid "Horizontal Padding"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:883
+#: block/src/social-sharing-block/components/Inspector.js:884
 msgid "Vertical Margin"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:894
+#: block/src/social-sharing-block/components/Inspector.js:895
 msgid "Horizontal Margin"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:905
+#: block/src/social-sharing-block/components/Inspector.js:906
 msgid "Shape"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:907
+#: block/src/social-sharing-block/components/Inspector.js:908
 msgid "Border Radius"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:918
+#: block/src/social-sharing-block/components/Inspector.js:919
 msgid "Border radius is set to 0 for square styles."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:920
+#: block/src/social-sharing-block/components/Inspector.js:921
 msgid "Border radius is set to 50 for pill styles."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:922
+#: block/src/social-sharing-block/components/Inspector.js:923
 msgid "Border radius is not applicable for minimal style."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:928
+#: block/src/social-sharing-block/components/Inspector.js:929
 msgid "Add Border"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:934
+#: block/src/social-sharing-block/components/Inspector.js:935
 msgid "Border is always enabled for outlined styles."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:936
+#: block/src/social-sharing-block/components/Inspector.js:937
 msgid "Border is not applicable for minimal style."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:944
+#: block/src/social-sharing-block/components/Inspector.js:945
 msgid "Border Width"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:956
-#: block/src/social-sharing-block/components/Inspector.js:970
+#: block/src/social-sharing-block/components/Inspector.js:957
+#: block/src/social-sharing-block/components/Inspector.js:971
 msgid "Border Color"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:969
+#: block/src/social-sharing-block/components/Inspector.js:970
 msgid "Border & Icon Color"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:972
+#: block/src/social-sharing-block/components/Inspector.js:973
 msgid "For outlined styles, border color matches icon color"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:983
+#: block/src/social-sharing-block/components/Inspector.js:984
 msgid "Color Settings"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:990
+#: block/src/social-sharing-block/components/Inspector.js:991
 msgid "One Tone Background Color"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:993
+#: block/src/social-sharing-block/components/Inspector.js:994
 msgid "Changes the background color of all icons."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:994
+#: block/src/social-sharing-block/components/Inspector.js:995
 msgid "This option is only available with the One Tone style."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:1001
+#: block/src/social-sharing-block/components/Inspector.js:1002
 msgid "This color will be applied to icons for outlined and minimal styles"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:1006
+#: block/src/social-sharing-block/components/Inspector.js:1007
 msgid "Icon Hover Color"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:1012
+#: block/src/social-sharing-block/components/Inspector.js:1013
 msgid "Label Color"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:1014
+#: block/src/social-sharing-block/components/Inspector.js:1015
 msgid "This color will be applied to labels for outlined and minimal styles"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Inspector.js:1019
+#: block/src/social-sharing-block/components/Inspector.js:1020
 msgid "Label Hover Color"
 msgstr ""
 
@@ -1965,22 +1957,22 @@ msgid "One Tone"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Edit.js:212
+#: block/src/social-sharing-block/components/Edit.js:217
 msgid "Edit Label"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Edit.js:215
+#: block/src/social-sharing-block/components/Edit.js:220
 msgid "Label Text"
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Edit.js:242
+#: block/src/social-sharing-block/components/Edit.js:247
 msgid "Select sharing networks in the block sidebar."
 msgstr ""
 
 #: block/dist/wpzoom-social-icons.js:3
-#: block/src/social-sharing-block/components/Edit.js:253
+#: block/src/social-sharing-block/components/Edit.js:258
 msgid "Click on any icon to edit its label"
 msgstr ""
 
