@@ -224,6 +224,9 @@ Floating Buttons is a PRO feature that displays your social sharing icons as a f
 
 == Changelog ==
 
+= 4.6.2 =
+* Click to Chat: WhatsApp button now uses the universal `wa.me` link, which opens the WhatsApp app directly on phones and computers instead of the WhatsApp Web login page
+
 = 4.6.1 =
 * Minor fixes
 
